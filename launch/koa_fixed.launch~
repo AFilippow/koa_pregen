@@ -1,0 +1,10 @@
+<launch>
+        <node pkg="koa" name="main" type="main" output="screen">
+                <param name="source" value="robot/camera"/>
+                <param name="tracker_topic" value="camera"/> 
+                <param name="perfect_Obstacle" value="false"/> 
+                <param name="fixed_cloud" value="true"/> 
+	    </node>   
+</launch>
+
+ 
