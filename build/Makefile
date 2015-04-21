@@ -425,6 +425,54 @@ gtest_main/fast:
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+src/KukaLWR_DHnew.o: src/KukaLWR_DHnew.cpp.o
+.PHONY : src/KukaLWR_DHnew.o
+
+# target to build an object file
+src/KukaLWR_DHnew.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o
+.PHONY : src/KukaLWR_DHnew.cpp.o
+
+src/KukaLWR_DHnew.i: src/KukaLWR_DHnew.cpp.i
+.PHONY : src/KukaLWR_DHnew.i
+
+# target to preprocess a source file
+src/KukaLWR_DHnew.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i
+.PHONY : src/KukaLWR_DHnew.cpp.i
+
+src/KukaLWR_DHnew.s: src/KukaLWR_DHnew.cpp.s
+.PHONY : src/KukaLWR_DHnew.s
+
+# target to generate assembly for a file
+src/KukaLWR_DHnew.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s
+.PHONY : src/KukaLWR_DHnew.cpp.s
+
+src/cspaceconverter.o: src/cspaceconverter.cpp.o
+.PHONY : src/cspaceconverter.o
+
+# target to build an object file
+src/cspaceconverter.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.o
+.PHONY : src/cspaceconverter.cpp.o
+
+src/cspaceconverter.i: src/cspaceconverter.cpp.i
+.PHONY : src/cspaceconverter.i
+
+# target to preprocess a source file
+src/cspaceconverter.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.i
+.PHONY : src/cspaceconverter.cpp.i
+
+src/cspaceconverter.s: src/cspaceconverter.cpp.s
+.PHONY : src/cspaceconverter.s
+
+# target to generate assembly for a file
+src/cspaceconverter.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.s
+.PHONY : src/cspaceconverter.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -579,6 +627,12 @@ help:
 	@echo "... tests"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... src/KukaLWR_DHnew.o"
+	@echo "... src/KukaLWR_DHnew.i"
+	@echo "... src/KukaLWR_DHnew.s"
+	@echo "... src/cspaceconverter.o"
+	@echo "... src/cspaceconverter.i"
+	@echo "... src/cspaceconverter.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -20,12 +20,10 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <kdl/chain.hpp>
+#include "KukaLWR_DHnew.h"
 
-namespace KDL{ 
-	class Chain;
-	Chain KukaLWR_DHnew();
-    
-    
+
+using namespace KDL;
     Chain KukaLWR_DHnew(){
         Chain kukaLWR_DHnew;
 	
@@ -83,4 +81,4 @@ namespace KDL{
         return kukaLWR_DHnew;
     }
     
-}
+

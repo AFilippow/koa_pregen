@@ -113,6 +113,7 @@ CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
 CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
 CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/main.cpp.o -c /home/andrej/Workspace/koa/src/main.cpp
@@ -198,6 +199,7 @@ CMakeFiles/main.dir/src/segmenter.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
 CMakeFiles/main.dir/src/segmenter.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
 CMakeFiles/main.dir/src/segmenter.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/main.dir/src/segmenter.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/segmenter.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/segmenter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/segmenter.cpp.o -c /home/andrej/Workspace/koa/src/segmenter.cpp
@@ -283,6 +285,7 @@ CMakeFiles/main.dir/src/vrepComm.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
 CMakeFiles/main.dir/src/vrepComm.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
 CMakeFiles/main.dir/src/vrepComm.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/main.dir/src/vrepComm.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/vrepComm.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/vrepComm.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/vrepComm.cpp.o -c /home/andrej/Workspace/koa/src/vrepComm.cpp
@@ -368,6 +371,7 @@ CMakeFiles/main.dir/src/xdmp.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
 CMakeFiles/main.dir/src/xdmp.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
 CMakeFiles/main.dir/src/xdmp.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/main.dir/src/xdmp.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/xdmp.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/xdmp.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/xdmp.cpp.o -c /home/andrej/Workspace/koa/src/xdmp.cpp
@@ -453,6 +457,7 @@ CMakeFiles/main.dir/src/vectormath.cpp.o: /opt/ros/hydro/share/tf2_py/package.xm
 CMakeFiles/main.dir/src/vectormath.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
 CMakeFiles/main.dir/src/vectormath.cpp.o: /opt/ros/hydro/share/tf/package.xml
 CMakeFiles/main.dir/src/vectormath.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/vectormath.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/vectormath.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/vectormath.cpp.o -c /home/andrej/Workspace/koa/src/vectormath.cpp
@@ -474,13 +479,187 @@ CMakeFiles/main.dir/src/vectormath.cpp.o.provides: CMakeFiles/main.dir/src/vecto
 
 CMakeFiles/main.dir/src/vectormath.cpp.o.provides.build: CMakeFiles/main.dir/src/vectormath.cpp.o
 
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: ../src/cspaceconverter.cpp
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: ../manifest.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosbuild/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosbag_storage/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/cspaceconverter.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/cspaceconverter.cpp.o -c /home/andrej/Workspace/koa/src/cspaceconverter.cpp
+
+CMakeFiles/main.dir/src/cspaceconverter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/cspaceconverter.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/andrej/Workspace/koa/src/cspaceconverter.cpp > CMakeFiles/main.dir/src/cspaceconverter.cpp.i
+
+CMakeFiles/main.dir/src/cspaceconverter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/cspaceconverter.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/andrej/Workspace/koa/src/cspaceconverter.cpp -o CMakeFiles/main.dir/src/cspaceconverter.cpp.s
+
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires:
+.PHONY : CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires
+
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides: CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides
+
+CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides.build: CMakeFiles/main.dir/src/cspaceconverter.cpp.o
+
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: ../src/KukaLWR_DHnew.cpp
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: ../manifest.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosbuild/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosbag_storage/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o -c /home/andrej/Workspace/koa/src/KukaLWR_DHnew.cpp
+
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/andrej/Workspace/koa/src/KukaLWR_DHnew.cpp > CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i
+
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/andrej/Workspace/koa/src/KukaLWR_DHnew.cpp -o CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s
+
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires:
+.PHONY : CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires
+
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.provides: CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.provides
+
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.provides.build: CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/main.cpp.o" \
 "CMakeFiles/main.dir/src/segmenter.cpp.o" \
 "CMakeFiles/main.dir/src/vrepComm.cpp.o" \
 "CMakeFiles/main.dir/src/xdmp.cpp.o" \
-"CMakeFiles/main.dir/src/vectormath.cpp.o"
+"CMakeFiles/main.dir/src/vectormath.cpp.o" \
+"CMakeFiles/main.dir/src/cspaceconverter.cpp.o" \
+"CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
@@ -490,6 +669,8 @@ main_EXTERNAL_OBJECTS =
 ../bin/main: CMakeFiles/main.dir/src/vrepComm.cpp.o
 ../bin/main: CMakeFiles/main.dir/src/xdmp.cpp.o
 ../bin/main: CMakeFiles/main.dir/src/vectormath.cpp.o
+../bin/main: CMakeFiles/main.dir/src/cspaceconverter.cpp.o
+../bin/main: CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o
 ../bin/main: /usr/lib/libvtkCommon.so.5.8.0
 ../bin/main: /usr/lib/libvtkFiltering.so.5.8.0
 ../bin/main: /usr/lib/libvtkImaging.so.5.8.0
@@ -532,6 +713,8 @@ CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/segmenter.cpp.o.requires
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/vrepComm.cpp.o.requires
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/xdmp.cpp.o.requires
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/vectormath.cpp.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires
 .PHONY : CMakeFiles/main.dir/requires
 
 CMakeFiles/main.dir/clean:

@@ -1,5 +1,5 @@
-#ifndef SEGMENTER_H_
-#define SEGMENTER_H_
+#ifndef CSPACE_H_
+#define CSPACE_H_
 #include <iostream>
 #include <sys/time.h>
 #include <pcl/io/pcd_io.h>
@@ -39,13 +39,47 @@
 #include <pcl/filters/statistical_outlier_removal.h> 
 #include <pcl/filters/passthrough.h>
 
-#define MAXSEGMENTS 20
+#include <vector>
+#include <fstream>
+#include <string>
+
+#include "vectormath.h"
+//OROCOS KDL 
+#include "KukaLWR_DHnew.h"
+#include <kdl/chainfksolverpos_recursive.hpp>
+#include <time.h>
+
+//THREADS!
+#include <pthread.h>
+#define PI 3.141562f
+/* This nasty piece of Work holds all c-Space points that correspond to a 3d-space point o(x,y,z)
+ * Point vector values are c-space coordinates: pointsData[x*50*50 + y*50 + z][pointNumber][c-Space dimension]
+ * 
+ * 
+ */
+using namespace std;
+using namespace KDL;
+class cspaceconverter {
+	public:
+	
+	Chain KukaChain;
+	ChainFkSolverPos_recursive * kinematic_solver;
+	int jointNumber;
+	
+	
+	
+	vector< vector< vector< float > > > pointsData;
+	int examineDifference(vector<float> point1, vector<float> point2);
+	
+	void *runSlice(void *q3val);
+	void generate_points_data(KDL::Frame baseframe);
+	vector<float> joint_to_cartesian(vector<float> jointvalues){ return joint_to_cartesian(jointvalues,-1);}
+	vector<float> joint_to_cartesian(vector<float> jointvalues, int segmentnumber);
+	
+	cspaceconverter();
+	vector< vector< float > >  getCspaceObstacle(float x, float y, float z) {return pointsData[x*50*50 + y*50 + z];}
+
+};
 
 
-
-
-typedef pcl::PointCloud<pcl::PointXYZ> mPointCloudType;
-typedef pcl::PointCloud<pcl::PointXYZRGB> mPointCloudTypeColor;
-typedef pcl::PointXYZ mPointType; 
-typedef pcl::PointXYZRGB mPointTypeColor; 
-#endif /* SEGMENTER_H_ */
+#endif /* CSPACE_H_ */

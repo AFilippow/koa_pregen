@@ -59,14 +59,20 @@ void vrepComm::placeIKTarget(float x, float y, float z){
 	newPoint.z = z;
 	ikPosition->publish(newPoint);
 }
-
+void vrepComm::sendJointAngles(std::vector<float> val){
+	float* newval = new float[7];
+	for (int i = 0; i < 7; i++)
+		newval[i] = val[i];
+	sendJointAngles(newval);
+	
+}
 void vrepComm::sendJointAngles(float* val){
 	stringstream message;
-	//for (int i = 0; i < 7; i++)
-	//	message << val[i] << 't';
-	//message << "1.35t" << val[0] << "t0.0t" << val[1] << "t0.0t0.0t0.0t"; //for kuka
+	for (int i = 0; i < 7; i++)  //for full kuka
+		message << val[i] << 't';
+	//message << "1.35t" << val[0] << "t0.0t" << val[1] << "t0.0t0.0t0.0t"; //for kuka as two-joint arm
 	//message  << val[0] << "t" << val[1]; //for two-joint arm
-	message  << val[0] << "t" << val[1] << "t" << val[2]; //for 3-joint arm
+	//message  << val[0] << "t" << val[1] << "t" << val[2]; //for 3-joint arm
 	std::string message_str(message.str());
 	///IMPORTANT: The Lua in V-Rep uses either commas or dots as decimal
 	///separators, depending on some unknown variable. if the com does 

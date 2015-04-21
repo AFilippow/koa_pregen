@@ -45,7 +45,7 @@
 #include "vrepComm.h"
 #include <time.h> 
 
-//#include "KukaLWR_DHnew.cpp"
+#include "cspaceconverter.h"
 
 //SocketComm was written to communicate with the Morse simulator, V-REP does not need it
 //#include "SocketComm.h"
@@ -84,8 +84,13 @@ std::vector<float> obstaclePersistenceWeight;
 vector<float> s;
 vector<float> e;
 tf::TransformListener* listener;
+tf::TransformListener* kukabaseListener;
 tf::StampedTransform * frameTransform;
+tf::StampedTransform * kukaBaseTransform;
 xDMP dmp;
+
+cspaceconverter * CSP;
+
 FILE * cspobst;
 FILE * cspobst2;
 FILE * cspobst3;
@@ -164,7 +169,7 @@ void pregenerateObstacles(){
 					obst[obst.size()-3] = a[0];
 					obst[obst.size()-2] = a[1];
 					obst[obst.size()-1] = a[2];
-					fprintf(cspobst,"%f \t %f \t %f  \t %f  \t %f  \t %f \n", a[0], a[1], a[2] ,fkobstacle[0],fkobstacle[1],fkobstacle[2]);
+					//fprintf(cspobst,"%f \t %f \t %f  \t %f  \t %f  \t %f \n", a[0], a[1], a[2] ,fkobstacle[0],fkobstacle[1],fkobstacle[2]);
 					break;
 				}
 			}
@@ -510,6 +515,7 @@ void initGlobalParams(int argc, char** argv){
 	obstacleCloud->height = obstacleCloud->width = 1;
 	obstacleCloud->points.push_back (pcl::PointXYZRGB());
 	frameTransform = new tf::StampedTransform( tf::Transform::getIdentity() , ros::Time::now(), "world", "kuka");
+	kukaBaseTransform = new tf::StampedTransform( tf::Transform::getIdentity() , ros::Time::now(), "world", "kuka_base");
 }
 
 void initDMP(){
@@ -566,9 +572,15 @@ void moveObstacles(vrepComm vcom){
 //---------------------------------------------------------------------------------------------------------------------//
 int main(int argc, char** argv)
 { 
-	cspobst = fopen("/home/andrej/Workspace/cspaceobstacles.txt","w");
-	cspobst2 = fopen("/home/andrej/Workspace/cspaceobstacles2.txt","w");
-	cspobst3 = fopen("/home/andrej/Workspace/cspaceobstacles3.txt","w");
+	CSP = new cspaceconverter();
+	KDL::Frame k(KDL::Rotation::RPY(0.0f, 2*PI/3.0f, -PI/3.0f), KDL::Vector(-0.275, 0.35, 0.5) );
+	CSP->generate_points_data(k);
+	return 1;
+	
+	
+	//cspobst = fopen("/home/andrej/Workspace/cspaceobstacles.txt","w");
+	//cspobst2 = fopen("/home/andrej/Workspace/cspaceobstacles2.txt","w");
+	//cspobst3 = fopen("/home/andrej/Workspace/cspaceobstacles3.txt","w");
 	ros::init(argc, argv, "koa");
 	ros::NodeHandle nh("~");  
 	initGlobalParams(argc, argv);
@@ -603,6 +615,7 @@ int main(int argc, char** argv)
 		
 	tf::TransformBroadcaster br;
 	listener = new   tf::TransformListener;
+	kukabaseListener = new   tf::TransformListener;
 	ofstream fileOutput("/home/andrej/Workspace/trajectiveCollisions.txt");	
 	
 
@@ -629,6 +642,12 @@ int main(int argc, char** argv)
 		catch (tf::TransformException ex){
 		  //ROS_ERROR("%s",ex.what());;
 		}
+	try{
+			kukabaseListener->lookupTransform( "KUKA_base", "world", ros::Time(0), *kukaBaseTransform);
+		}
+		catch (tf::TransformException ex){
+		  //ROS_ERROR("%s",ex.what());;
+		}
 		
 	moveObstacles(vcom);
 	if (fixedcloud) 
@@ -641,17 +660,6 @@ int main(int argc, char** argv)
 
 	int trialrun = 1;
 	
-	vector<float> y1(3);
-	y1[0] = 1;
-	y1[1] = 0;
-	y1[2] = 0;
-	vector<float> x1 = partialKinematic(y1,1);
-	printf("1, 0, 0; %f, %f, %f \n",x1[0],x1[1],x1[2]);
-	y1[0] = 0;
-	y1[1] = 1;
-	y1[2] = 0;
-    x1 = partialKinematic(y1,1);
-	printf("0, 1, 0; %f, %f, %f \n",x1[0],x1[1],x1[2]);
 	
 	while (ros::ok()){
 		if (currKeyFrameID >= 0)
@@ -663,7 +671,7 @@ int main(int argc, char** argv)
 		catch (tf::TransformException ex){
 		  //ROS_ERROR("%s",ex.what());;
 		}
-		
+
 		
 		///change here
 		//br.sendTransform(tf::StampedTransform(frameTransform->inverse(), ros::Time::now(), "world", "kuka"));
@@ -676,6 +684,61 @@ int main(int argc, char** argv)
 			if (segm.getColoredCloud()) 
 				segm.excludeObstacle(segm.getColoredCloud(),  segm.position);  */
 				
+				
+		try{
+			kukabaseListener->lookupTransform( "KUKA_base", "world", ros::Time(0), *kukaBaseTransform);
+		}
+		catch (tf::TransformException ex){
+		  //ROS_ERROR("%s",ex.what());;
+		}
+		
+		
+		
+		vector<float> jointvalues(7, 0);
+		jointvalues[1] = 1;
+		vector<float> spacecoords;
+		for (int i = 0; i < 7; i++)
+		{
+			spacecoords = CSP->joint_to_cartesian(jointvalues, i);
+			printf("Joint %i at %f, %f, %f \n",i,spacecoords[0],spacecoords[1],spacecoords[2]);
+		}
+		 
+		spacecoords = CSP->joint_to_cartesian(jointvalues);
+		//THIS is how you transform points into the KUKA frame of reference
+		//	to be used with forward kinematics		
+		geometry_msgs::PointStamped kuka_end;
+        kuka_end.header.frame_id = "KUKA_base";
+        kuka_end.header.stamp = ros::Time();
+        kuka_end.point.x = spacecoords[0];
+        kuka_end.point.y = spacecoords[1];
+        kuka_end.point.z = spacecoords[2];
+		geometry_msgs::PointStamped base_point;
+		try{
+			
+			kukabaseListener->transformPoint("world", kuka_end, base_point);
+
+			ROS_INFO("point in kuka coords: (%.2f, %.2f. %.2f) -----> point in global coords: (%.2f, %.2f, %.2f) at time %.2f",
+			kuka_end.point.x, kuka_end.point.y, kuka_end.point.z,
+			base_point.point.x, base_point.point.y, base_point.point.z, base_point.header.stamp.toSec());
+		}
+		catch(tf::TransformException& ex){
+			ROS_ERROR("Received an exception trying to transform a point from \"KUKA_base\" to \"world\": %s", ex.what());
+		}
+		vcom.sendJointAngles(jointvalues);
+		printf("Transformed Coordinates: %f, %f, %f \n",base_point.point.x, base_point.point.y, base_point.point.z);
+		
+		
+		break;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		if(t<=1.0*tau*T) //run cycle
 		{
 
@@ -719,14 +782,8 @@ int main(int argc, char** argv)
 			y=dmp.get_y();
 
 
-			//vcom.placeIKTarget(y[0],y[1],y[2]);
-			float y_as_array[dmp_dim];
-			for (int i = 0; i < dmp_dim; i++)
-			{
-				y_as_array[i] = y[i];	
-			}
 			
-				vcom.sendJointAngles(y_as_array);
+				vcom.sendJointAngles(y);
 			/*segm.position.x = y[0];
 			segm.position.y = y[1];
 			segm.position.z = y[2];*/
@@ -851,9 +908,9 @@ int main(int argc, char** argv)
 
 	}
 	
-			fclose(cspobst);
-			fclose(cspobst2);
-			fclose(cspobst3);
+			//fclose(cspobst);
+			//fclose(cspobst2);
+			//fclose(cspobst3);
 	return 0;
 }
 //---------------------------------------------------------------------------------------------------------------------//

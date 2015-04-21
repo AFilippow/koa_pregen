@@ -8,6 +8,7 @@
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
 #include <string>
+#include <vector>
 /* VREP communication object
  * send either IK target positon OR joint values
  * if you want to use joint values, disable the IK within vrep
@@ -30,5 +31,6 @@ public:
 	void callback(const std_msgs::Int32 inputROSMsg_tracker);
 	void placeIKTarget(float x, float y, float z);
 	void sendJointAngles(float* val);
+	void sendJointAngles( std::vector<float> val);
 	
 };

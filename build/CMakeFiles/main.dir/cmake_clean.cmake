@@ -4,6 +4,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/vrepComm.cpp.o"
   "CMakeFiles/main.dir/src/xdmp.cpp.o"
   "CMakeFiles/main.dir/src/vectormath.cpp.o"
+  "CMakeFiles/main.dir/src/cspaceconverter.cpp.o"
+  "CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
   "../bin/main.pdb"
   "../bin/main"
 )

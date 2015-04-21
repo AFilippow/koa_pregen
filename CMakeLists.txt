@@ -19,14 +19,14 @@ include_directories(${VTK_INCLUDE_DIRS})
 
 
 
-SET(detector_SOURCES src/main.cpp  src/segmenter.cpp src/vrepComm.cpp src/xdmp.cpp src/vectormath.cpp) 
-SET(detector_HEADERS src/segmenter.h src/vrepComm.h src/xdmp.h src/vectormath.h) 
+SET(detector_SOURCES src/main.cpp  src/segmenter.cpp src/vrepComm.cpp src/xdmp.cpp src/vectormath.cpp src/cspaceconverter.cpp src/KukaLWR_DHnew.cpp) 
+SET(detector_HEADERS src/segmenter.h src/vrepComm.h src/xdmp.h src/vectormath.h src/cspaceconverter.h src/KukaLWR_DHnew.h) 
 
 rosbuild_add_executable(main ${detector_SOURCES} ${detector_HEADERS})
 rosbuild_add_boost_directories()
 rosbuild_link_boost(main signals)
   
-target_link_libraries(main ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBS} ${QT_QTXML_LIBRARY} ${VTK_LIBRARIES})
+target_link_libraries(main ${QT_QTCORE_LIBRARY} ${OROCOS_KDL} ${QT_QTGUI_LIBRARY} ${QT_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBS} ${QT_QTXML_LIBRARY} ${VTK_LIBRARIES})
  
  
  
