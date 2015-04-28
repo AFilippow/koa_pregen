@@ -41,6 +41,7 @@
 
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 #include "vectormath.h"
@@ -52,6 +53,7 @@
 //THREADS!
 #include <pthread.h>
 #define PI 3.141562f
+#define THREADNUMBER 51
 /* This nasty piece of Work holds all c-Space points that correspond to a 3d-space point o(x,y,z)
  * Point vector values are c-space coordinates: pointsData[x*50*50 + y*50 + z][pointNumber][c-Space dimension]
  * 
@@ -71,11 +73,11 @@ class cspaceconverter {
 	vector< vector< vector< float > > > pointsData;
 	int examineDifference(vector<float> point1, vector<float> point2);
 	
-	void *runSlice(void *q3val);
+	//void *runSlice(void *q3val);
 	void generate_points_data(KDL::Frame baseframe);
 	vector<float> joint_to_cartesian(vector<float> jointvalues){ return joint_to_cartesian(jointvalues,-1);}
 	vector<float> joint_to_cartesian(vector<float> jointvalues, int segmentnumber);
-	
+	KDL::Frame baseframe;
 	cspaceconverter();
 	vector< vector< float > >  getCspaceObstacle(float x, float y, float z) {return pointsData[x*50*50 + y*50 + z];}
 

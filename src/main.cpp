@@ -573,7 +573,8 @@ void moveObstacles(vrepComm vcom){
 int main(int argc, char** argv)
 { 
 	CSP = new cspaceconverter();
-	KDL::Frame k(KDL::Rotation::RPY(0.0f, 2*PI/3.0f, -PI/3.0f), KDL::Vector(-0.275, 0.35, 0.5) );
+	KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.35, 0.05, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
+
 	CSP->generate_points_data(k);
 	return 1;
 	

@@ -20,7 +20,7 @@ xDMP::xDMP(){
 }
 
 xDMP::~xDMP(){
-fclose(positionAndDistanceOutput);
+//fclose(positionAndDistanceOutput);
 }
 
 void xDMP::init_dmp(int dim, std::vector<float> start, std::vector<float> goal, float total_t, float delta_t, float temp_scaling, int n_kernels, float width){
