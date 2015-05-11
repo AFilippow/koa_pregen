@@ -95,17 +95,6 @@ FILE * cspobst;
 FILE * cspobst2;
 FILE * cspobst3;
 
-
-/*void deepCopy(mPointCloudTypeColor::Ptr givenCloud, mPointCloudTypeColor::Ptr copyCloud ){
-	copyCloud.reset(new mPointCloudTypeColor);
-	strcpy(copyCloud->header.frame_id, givenCloud->header.frame_id);
-	copyCloud->height = givenCloud->height;
-	copyCloud->width = givenCloud->width;
-	for (unsigned int i = 0; i < givenCloud->points.size(); i++)
-		copyCloud->points[i] = givenCloud->points[i];
-	return;	
-}*/
-
 float randomNumber() //between 0 and 1
 {
 	return ((float) (rand()%10000))/10000;
@@ -126,12 +115,22 @@ vector<float> partialKinematic(vector<float> jointValues, float linkLength){
 	position[0] = (cos(a)*cos(b)*cos(c) - sin(a)*sin(c))*d + cos(a)*cos(b);
 	position[1] = (cos(b)*cos(c)*sin(a) + cos(a)*sin(c))*d + cos(b)*sin(a);
 	position[2] = d*cos(c)*sin(b) + sin(b);
-	//printf("FK value: %f, %f \n", position[0], position[1]);
-	
 
 	return position;
 }
+vector<float> fullKinematic(KDL::JntArray q){
+	KDL::Frame baseframe(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35) ) ;
+	Chain KukaChain = KukaLWR_DHnew();
+	ChainFkSolverPos_recursive kinematic_solver(KukaChain);
+	KDL::Frame cartpos;
+	kinematic_solver.JntToCart(q, cartpos);
+	KDL::Vector position = baseframe*cartpos.p;
 
+	vector<float> rtrn(3);
+	for (int i = 0; i < 3; i++)
+		rtrn[i] = position(i);
+	return rtrn;
+}
 float weighted_euclidean_distance(vector<float> a, vector<float> b){
 	float distance = 0;	
 	distance += (a[0]-b[0])*(a[0]-b[0])*0.2; 
@@ -201,31 +200,48 @@ void setPerfectObstacle(vector<float> position){
 	obst[5] =  0;
 	obst[6] =  0;*/
 	///Use this only if not using pregeneration
-	/*obst.resize(2); //2 dimensions
+	/*
+	 obst.resize(2); //2 dimensions
 	dist.resize(1);	
 	obst[0] = -1.49;
 	obst[1] = 0;
 	dist[0] = 0;
 	vector<float> spacepos = forwardsKinematic(position);
 	vector<float> spaceobst = forwardsKinematic(obst);
-		*/
-			
-	for (int j = 0; j < obst.size(); j +=3){
-		vector<float> a(3);
-		a[0] = obst[j];
-		a[1] = obst[j+1]; 
-		a[2] = obst[j+2]; 
-		dist[j/3] = 0;
-		for (int i = 0; i < 3; i ++)
-			dist[j/3] += (a[i]-position[i])*(a[i]-position[i]);
-		dist[j/3] = sqrt(dist[j/3]);
-		if (dist[j/3] < 0.001){
-			printf("Error at obstacle index %i! no distance calculated.\n",j/3);
-			printf("y: %f, %f, %f;  obstacle: %f, %f, %f;\n",position[0], position[1],position[2],a[0],a[1],a[2]);
-		}
-	}
+	*/
+	position.resize(7);
+	position[4] = 0;
+	position[5] = 0;
+	position[6] = 0;
+	vector<float> spacepos = CSP->joint_to_cartesian(position);
+	obst.resize(3); //2 dimensions
+	dist.resize(1);	
+	obst[0] = 0.175;
+	obst[1] = 0.2;
+	obst[2] = 0.2;
+	dist[0] = 0;
 	
+	KDL::JntArray q(7);
+	q(0) = position[0];
+	q(1) = position[1];
+	q(2) = position[2];
+	q(3) = position[3];
+	q(4) = 0;
+	q(5) = 0;
+	q(6) = 0;
+	
+	vector< float > r = fullKinematic(q);
+	
+	dist[0] = sqrt((r[0]-obst[0])*(r[0]-obst[0])+(r[1]-obst[1])*(r[1]-obst[1])+(r[2]-obst[2])*(r[2]-obst[2]));
+	///Later, we shall use one obstacle below the arm to force it away from the table
+/*	obst[3] = spacepos[0];
+	obst[4] = spacepos[1];
+	obst[5] = 0.01;
+	dist[1] = 0;
 
+
+	dist[1] = dist[1] + 0.05;
+*/
 	///[TODO] fix distances
 	//dist[0] = sqrt((obst[0] - segm.position.x)*(obst[0] - segm.position.x) + (obst[1] - segm.position.y) *(obst[1] - segm.position.y) + (obst[2] - segm.position.z)*(obst[2]- segm.position.z));
 	//dist[1] = sqrt((obst[3] - segm.position.x)*(obst[3] - segm.position.x) + (obst[4] - segm.position.y) *(obst[4] - segm.position.y) + (obst[5] - segm.position.z)*(obst[5]- segm.position.z));
@@ -519,42 +535,45 @@ void initGlobalParams(int argc, char** argv){
 }
 
 void initDMP(){
-	dmpDimensions = 3;
+	dmpDimensions = 4;
 	//printf("currently at %s \n", __func__);
 	y.resize(dmpDimensions);
 	std::cout << "Initialising dmp\n";
 	dmp_dim=dmpDimensions;
 	T=3; //seconds
 	tau=1;
-	dt=0.005; ///change here important ----- seconds
+	dt=0.01; ///change here important ----- seconds
 	n=3; //number of cores
 	sigma=1; 
 	//Start and endpoint
-	/*s.resize(7);
-	s[0] =  1.0212134122849; ///7 dimensions
-	s[1] = -1.6560771465302;
-	s[2] = -1.5361843109131;
-	s[3] =-0.90436959266663;
-	s[4] = 0.50615078210831;
-	s[5] =-0.69563746452332;
-	s[6] = 0.59889233112335;
-	e.resize(7);
-	e[0] = 0.40823304653168;
-	e[1] = -1.3737616539001;
-	e[2] = -1.9576900005341;
-	e[3] = -1.4553508758545;
-	e[4] = 0.26177817583084;
-	e[5] =-0.64877796173096;
-	e[6] = 0.59570634365082;*/
+	s.resize(dmp_dim);
+
+
+
+	s[0] =-0.26; ///7 dimensions
+	s[1] =-0.92;
+	s[2] =-0.12;
+	s[3] =-1.99;
+	//s[4] =-0.41122579574585;
+	//s[5] =-0.137188404798512;
+	//s[6] =-0.42345395684242;
+	e.resize(dmp_dim);
+	e[0] =-90*PI/180;
+	e[1] =-120*PI/180;
+	e[2] =40*PI/180;
+	e[3] =-75*PI/180;
+	//e[4] =-0.22381460666656;
+	//e[5] =-0.04704137146472;
+	//e[6] =-0.26153537631035;
 	//important!
-	s.resize(dmpDimensions);
+	/*s.resize(dmpDimensions);
 	e.resize(dmpDimensions);
 	s[0] = -1;
 	s[1] = 0.01;
 	s[2] = 0;
 	e[0] = 1;
 	e[1] = 0.01;
-	e[2] = 0;
+	e[2] = 0;*/
 	
 	dmp.init_dmp(dmp_dim, s, e, T, dt, tau, n, sigma);
 
@@ -569,14 +588,135 @@ void moveObstacles(vrepComm vcom){
 	sleep(3);
 }
 
+float vectorarraydistance(KDL::JntArray q1, vector<float> q2){
+	float result = 0;
+	for (int i = 0; i < 4; i++)
+		result += (q1(i)-q2[i])*(q1(i)-q2[i]);
+	return sqrt(result);
+}
+KDL::JntArray lookupConfigurationFromPoint(vector<float> point, vector<float> configuration){
+	/*
+	 * I should consider loading the obstacle data once and finding the closest point at every time step.
+	 * 
+	 * 
+	 * 
+	 */
+	KDL::JntArray loadedpoint(4), closestObstacle(4);
+	int x, y, z;
+	x = floor((point[0]+0.3)*61/0.6);
+	if (x < 0 || x >= 62) { printf("ERROR: x( = %i) is out of bounds.\n", x); return closestObstacle;}
+		
+	y = floor((point[1]+0.15)*61/0.6);
+	if (y < 0 || y >= 62) { printf("ERROR: y( = %i) is out of bounds.\n", y); return closestObstacle;}
+		
+	z = floor((point[2])*21/0.2);
+	if (z < 0 || z >= 22) { printf("ERROR: z( = %i) is out of bounds.\n", z); return closestObstacle;}
+	printf("x: %i, y: %i, z: %i \n",x, y, z);
+	std::string line;
+	std::ifstream slicefile(("/home/andrej/Workspace/cspoutput/yzreduced/slice_"+boost::to_string(x)+"_"+boost::to_string(y)+"_"+boost::to_string(z)+".dat").c_str(), ios::in);
+
+	int loadedx, pointscontrolled;
+	float mindist = 10000;
+	pointscontrolled = 0;
+	while (std::getline(slicefile, line))
+	{	
+		std::istringstream iss(line);
+		if (!(iss >> loadedx >> loadedpoint(0) >> loadedpoint(1) >> loadedpoint(2) >> loadedpoint(3))) { printf("error: cannot read line!\n"); break; }
+				pointscontrolled ++;
+		if (vectorarraydistance(loadedpoint, configuration) < mindist){
+
+			mindist = vectorarraydistance(loadedpoint, configuration);
+			closestObstacle = loadedpoint;
+		}		
+	}
+	printf("found closest obstacle to be %f, %f, %f, %f of %i points \n", closestObstacle(0) ,closestObstacle(1), closestObstacle(2), closestObstacle(3),pointscontrolled);
+	return closestObstacle;
+}
+KDL::JntArray lookupConfigurationFromPoint_6_Points(vector<float> point, vector<float> configuration){
+	KDL::JntArray currconf, closestObstacle(4);
+	int x, y, z;
+	x = floor((point[0]+0.3)*61/0.6);
+	if (x < 0 || x >= 62) { printf("ERROR: x( = %i) is out of bounds.\n", x); return closestObstacle;}
+		
+	y = floor((point[1]+0.15)*61/0.6);
+	if (y < 0 || y >= 62) { printf("ERROR: y( = %i) is out of bounds.\n", y); return closestObstacle;}
+		
+	z = floor((point[2])*21/0.2);
+	if (z < 0 || z >= 22) { printf("ERROR: z( = %i) is out of bounds.\n", z); return closestObstacle;}
+		
+		
+	float mindist = 10000;
+	vector<float> temppoint = point;
+
+	if (x >= 1){
+		temppoint = point;
+		temppoint[0] -=(0.6/61);
+		currconf = lookupConfigurationFromPoint(temppoint, configuration);
+		if (vectorarraydistance(currconf, configuration) < mindist){
+			mindist = vectorarraydistance(currconf, configuration);
+			closestObstacle = currconf;
+		}
+	}
+	if (x <= 60){
+		temppoint = point;
+		temppoint[0] +=(0.6/61);
+		currconf = lookupConfigurationFromPoint(temppoint,  configuration);
+		if (vectorarraydistance(currconf, configuration) < mindist){
+			mindist = vectorarraydistance(currconf, configuration);
+			closestObstacle = currconf;
+		}
+	}
+
+
+	if (y >= 1){
+		temppoint = point;
+		temppoint[1] -=(0.6/61);
+		currconf = lookupConfigurationFromPoint(temppoint, configuration);
+		if (vectorarraydistance(currconf, configuration) < mindist){
+			mindist = vectorarraydistance(currconf, configuration);
+			closestObstacle = currconf;
+		}
+	}
+	if (y <= 60){
+		temppoint = point;
+		temppoint[1] +=(0.6/61);
+		currconf = lookupConfigurationFromPoint(temppoint, configuration);
+		if (vectorarraydistance(currconf, configuration) < mindist){
+			mindist = vectorarraydistance(currconf, configuration);
+			closestObstacle = currconf;
+		}
+	}
+	
+	if (z >= 1){
+		temppoint = point;
+		temppoint[2] -=(0.6/61);
+		currconf = lookupConfigurationFromPoint(temppoint, configuration);
+		if (vectorarraydistance(currconf, configuration) < mindist){
+			mindist = vectorarraydistance(currconf, configuration);
+			closestObstacle = currconf;
+		}
+	}
+	if (z <= 20){
+		temppoint = point;
+		temppoint[2] +=(0.6/61);
+		currconf = lookupConfigurationFromPoint(temppoint, configuration);
+		if (vectorarraydistance(currconf, configuration) < mindist){
+			mindist = vectorarraydistance(currconf, configuration);
+			closestObstacle = currconf;
+		}
+	}
+	printf("found point in c-space: %f \t %f \t %f \t %f with distance %f \n",closestObstacle(0),closestObstacle(1),closestObstacle(2),closestObstacle(3),mindist);
+	return closestObstacle;
+}
+
 //---------------------------------------------------------------------------------------------------------------------//
 int main(int argc, char** argv)
 { 
 	CSP = new cspaceconverter();
-	KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.35, 0.05, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
+	KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
 
-	CSP->generate_points_data(k);
-	return 1;
+	//CSP->generate_points_data(k);
+	//return 1;
 	
 	
 	//cspobst = fopen("/home/andrej/Workspace/cspaceobstacles.txt","w");
@@ -629,7 +769,7 @@ int main(int argc, char** argv)
 	angular_increment = (3.14152/8);
 	std::cout << "angular_increment: " << angular_increment << "\n";
 
-	pregenerateObstacles();
+	//pregenerateObstacles();
 
 	while (!currCloud)
 	{	
@@ -675,15 +815,10 @@ int main(int argc, char** argv)
 
 		
 		///change here
-		//br.sendTransform(tf::StampedTransform(frameTransform->inverse(), ros::Time::now(), "world", "kuka"));
 		
 		tf::StampedTransform nullTransform(frameTransform->inverse(), ros::Time::now(), "world", "kuka");
 		nullTransform.setIdentity ();
 		br.sendTransform(nullTransform);
-		
-		/*if (!fixedcloud)
-			if (segm.getColoredCloud()) 
-				segm.excludeObstacle(segm.getColoredCloud(),  segm.position);  */
 				
 				
 		try{
@@ -695,7 +830,7 @@ int main(int argc, char** argv)
 		
 		
 		
-		vector<float> jointvalues(7, 0);
+		/*vector<float> jointvalues(7, 0);
 		jointvalues[1] = 1;
 		vector<float> spacecoords;
 		for (int i = 0; i < 7; i++)
@@ -724,12 +859,10 @@ int main(int argc, char** argv)
 		}
 		catch(tf::TransformException& ex){
 			ROS_ERROR("Received an exception trying to transform a point from \"KUKA_base\" to \"world\": %s", ex.what());
-		}
-		vcom.sendJointAngles(jointvalues);
-		printf("Transformed Coordinates: %f, %f, %f \n",base_point.point.x, base_point.point.y, base_point.point.z);
+		}*/
+
 		
 		
-		break;
 		
 		
 		
@@ -757,34 +890,55 @@ int main(int argc, char** argv)
 			}
 			
 			if (perfectObstacle) //Offset is -1.9, -0.1, -0.1 
-				setPerfectObstacle(y);
+				{
+					if (trialrun==1 || trialrun==3 || trialrun==5)
+						setPerfectObstacle(y);
+					else
+					{
+						obst.resize(0);
+						dist.resize(0);
+					}
+				}
 			
 			//printf("Y: %f, %f;  dist: %f \n", y[0], y[1], dist[0]);
 			//mass_center_distance = sqrt((-0.4 - segm.position.x)*(-0.4 - segm.position.x) + (-0.4 - segm.position.y) *(-0.4 - segm.position.y) + (0.3 - segm.position.z)*(0.3 - segm.position.z));
 			
 			///[TODO] here we need to transform our obstacle into joint space;
 			//dmp.set_obstacle(obst, dist);
+			vector<float> o(0);
 			if (obst.size() > 1 && !mode){
-				vector<float> o(3);
-				vector<float> d(1);
-				int i = selectObstacleBasedOnDist();
-				o[0] = obst[i];
-				o[1] = obst[i+1];
-				o[3] = obst[i+2];
-				d[0] = dist[i/3];
-				printf("i: %i;  d: %f \n",i/3,d[0]);
-				dmp.set_obstacle(o, d);
+				for (int i = 0; i < obst.size(); i+=3){
+					vector<float> currentobstacle(3);
+					currentobstacle[0] = obst[i+0];
+					currentobstacle[1] = obst[i+1];
+					currentobstacle[2] = obst[i+2];
+					
+					printf("currentobstacle; %f, %f, %f \n", currentobstacle[0],currentobstacle[1], currentobstacle[2]);
+					KDL::JntArray joints = lookupConfigurationFromPoint_6_Points(currentobstacle, y);
+					o.resize(o.size()+dmp_dim);
+					for(int j = 0; j < dmp_dim; j++)
+						o[i+j] = joints(j);
+				}
+
+
+
+				dmp.set_obstacle(o, dist);
 			} else{
 			printf("no obstacles found %i \n",obst.size());
+			dmp.set_obstacle(obst, dist);
 			}
-			vector<float> x = partialKinematic(y,1);
-			printf("X: %f, %f, %f \n",x[0],x[1],x[2]);
+			//vector<float> x = partialKinematic(y,1);
+			//printf("X: %f, %f, %f \n",x[0],x[1],x[2]);
 			dmp.calculate_one_step_dmp(t);
 			y=dmp.get_y();
 
-
-			
-				vcom.sendJointAngles(y);
+			vector<float> y2 = y;
+			y2.resize(7);
+			y2[4] = 0;
+			y2[5] = 1.5;
+			y2[6] = 0;
+			printf("continuing \n");
+			vcom.sendJointAngles(y2);
 			/*segm.position.x = y[0];
 			segm.position.y = y[1];
 			segm.position.z = y[2];*/

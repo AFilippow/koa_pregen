@@ -66,7 +66,7 @@ void* coarsenYZData(void* slicenumber){
 				int count;
 				bool found = false;
 				for (int i = 0; i < obstacles[x].size(); i++){
-					if (specialdistance(point, obstacles[x][i]) < 0.15 && !found)
+					if (specialdistance(point, obstacles[x][i]) < 0.2 && !found)
 						{
 							count = counts[x][i];
 							for (int j = 0; j < 4; j++)
@@ -86,11 +86,14 @@ void* coarsenYZData(void* slicenumber){
 				}	
 					
 			}
-		FILE * yzslice = fopen(("/home/andrej/Workspace/cspoutput/yzreduced/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(),"w");
-			for (int x1 = 0; x1 < 62; x1++)
+		FILE * yzslice;
+			for (int x1 = 0; x1 < 62; x1++){
+				yzslice = fopen(("/home/andrej/Workspace/cspoutput/yzreduced/slice_"+boost::to_string(x1)+"_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(),"w");
 				for (int i1 = 0; i1 < obstacles[x1].size(); i1++)
 					fprintf(yzslice,"%i \t %f \t %f \t %f \t %f \t %i \n",x1, obstacles[x1][i1][0], obstacles[x1][i1][1], obstacles[x1][i1][2], obstacles[x1][i1][3], counts[x1][i1]);
 			fclose(yzslice);
+			
+			}
 			printf("slice %i, %i of 22 done after %f seconds \n",i ,j,difftime( time(0), start));
 
 		}
@@ -203,7 +206,7 @@ void* runSlice(void *q3val){
 	Chain KukaChain = KukaLWR_DHnew();
 	ChainFkSolverPos_recursive* kinematic_solver = new ChainFkSolverPos_recursive(KukaChain);
 	int jointNumber = KukaChain.getNrOfJoints();
-	KDL::Frame baseframe(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.35, 0.05, 0.35) ) ;
+	KDL::Frame baseframe(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35) ) ;
 	int i1 = *(int*)q3val;
 	KDL::JntArray q(jointNumber);
 			q(2) = (-25.0f+(float)i1*0.5)*PI/30;//k*PI/30.0f;
@@ -255,10 +258,35 @@ void cspaceconverter::generate_points_data(KDL::Frame k) {
 	baseframe = k;
 
 
-	//rearrangeSlicesByYZ();
+
 
 	pthread_t threads[THREADNUMBER];
 	int **args = new int*[THREADNUMBER];
+	
+	for(int i = 0; i < THREADNUMBER; i++){
+		args[i]  = new int[1];
+		args[i][0] = i;
+		int rc = pthread_create(&threads[i], NULL, runSlice, (void*)args[i]);
+		//int rc = pthread_create(&threads[i], NULL, calculateObstacleCenters, (void*)args[i]);
+	}
+	for(int i = 0; i < THREADNUMBER; i++){
+		void **status;
+		int rc = pthread_join(threads[i],status);
+	}
+	for(int i = 0; i < THREADNUMBER; i++){
+		args[i]  = new int[1];
+		args[i][0] = i;
+		//int rc = pthread_create(&threads[i], NULL, runSlice, (void*)args[i]);
+		int rc = pthread_create(&threads[i], NULL, calculateObstacleCenters, (void*)args[i]);
+	}
+	for(int i = 0; i < THREADNUMBER; i++){
+		void **status;
+		int rc = pthread_join(threads[i],status);
+	}
+	
+	
+	rearrangeSlicesByYZ();
+	
 	for(int i = 0; i < THREADNUMBER; i++){
 		args[i]  = new int[1];
 		args[i][0] = i;

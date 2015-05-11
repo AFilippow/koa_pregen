@@ -72,8 +72,8 @@ void xDMP::init_dmp(int dim, std::vector<float> start, std::vector<float> goal, 
 	obstacleList = fopen("/home/andrej/Workspace/xdmp_obstacles.txt","w");
 	persistenceOutput = fopen("/home/andrej/Workspace/xdmp_persistence.txt","w");
 	positionAndMotion = fopen("/home/andrej/Workspace/xdmp_positionmotion.txt","w");
-	verboseAvoidance = fopen("/home/andrej/Workspace/xdmp_verbose.txt","w");
 	goalfunction = fopen("/home/andrej/Workspace/xdmp_goalfunction.txt","w");
+	verbose = fopen("/home/andrej/Workspace/xdmp_verbose.txt","w");
 	timestep = 0;
 	persistent_direction_of_motion.resize(dim, 0);
 }
@@ -105,7 +105,6 @@ void xDMP::calculate_one_step_dmp(float t){
 
 	if (t==0){
 		fprintf(positionAndMotion,"----------------------------------------------\n\n\n\n\n\n",0);
-		fprintf(verboseAvoidance,"----------------------------------------------\n",0);
 		for (int i =0; i < dimensions;i++)
 		{
 			z[i]=0;
@@ -191,6 +190,7 @@ void xDMP::calculate_one_step_dmp(float t){
 			for(int i = 0; i < obstacle.size(); i+=dimensions)
 			{
 				vector<float> o(obstacle.begin()+i, obstacle.begin()+i+dimensions);
+				printf("Vector o: %f \t %f \t %f \t %f \n", obstacle[i+0], obstacle[i+1], obstacle[i+2], obstacle[i+3]);
 				dz_addition = vector_sum(dz_addition, avoid_obstacle(o, y, dy, distances[i/dimensions]-DISTANCE_SHORTENER, tau));
 				//dz_addition = vector_sum(dz_addition, avoid_obstacle(o, y, currentMotion, distances[i/3]-DISTANCE_SHORTENER, tau));
 				//dz_addition = vector_sum(dz_addition, avoid_obstacle(o, y, persistent_direction_of_motion, distances[i/3]-DISTANCE_SHORTENER, tau));
@@ -224,8 +224,9 @@ void xDMP::calculate_one_step_dmp(float t){
 
 		
 		
-		
-		
+		///spring force towards zero configuration
+		for (int i = 0; i < dimensions; i++)
+			dz[i] -= y[i]*y[i]*y[i]/1500;
 		
 		
 		
@@ -267,7 +268,7 @@ void xDMP::calculate_one_step_dmp(float t){
     //persistent_direction_of_motion = scalar_product(0.95,persistent_direction_of_motion);
     //persistent_direction_of_motion = vector_sum(scalar_product(motion_persistence_weight, persistent_direction_of_motion), scalar_product(1-motion_persistence_weight,dy));
     fprintf(persistenceOutput,"%i \t %f \t %f \t %f \t %f \t %f \t %f \n",timestep, dy[0],dy[1],dy[2],persistent_direction_of_motion[0],persistent_direction_of_motion[1],persistent_direction_of_motion[2]);
-	fprintf(positionAndMotion," %f \t %f \n", y[0], y[1]);//, y[2], sqrt(dy[0]*dy[0]+dy[1]*dy[1]+dy[2]*dy[2]));
+	fprintf(positionAndMotion," %f \t %f \t %f \t %f \t %f \n", y[0], y[1], y[2], y[3], sqrt(dy[0]*dy[0]+dy[1]*dy[1]+dy[2]*dy[2]+dy[3]*dy[3]));
 	timestep++;
 }
 
@@ -380,16 +381,24 @@ vector<float> xDMP::avoid_obstacle( vector<float> obstacle, vector<float> mobile
 				for(int i = 0; i < dimensions; i++)
 					deviation[i] = deviation[i] * 0.05 /sqrt(total_deviation);
 			//std::cout << "deviation: " << deviation[0]*deviation[0]+ deviation[1]*deviation[1] << "\n";
-			fprintf(verboseAvoidance,"%i \t   %f \t %f \t %f \t ", timestep, mobilePoint[0], mobilePoint[1], mobilePoint[2]);  	// 1, 2, 3, 4
-			fprintf(verboseAvoidance, " %f \t %f \t %f \t  ", speed[0], speed[1], speed[2]);								   	// 5, 6, 7
-			fprintf(verboseAvoidance, " %f \t %f \t %f \t  ", obstacle[0], obstacle[1], obstacle[2]);							// 8, 9, 10
-			fprintf(verboseAvoidance, " %f \t %f \t %f \t  ", deviation[0], deviation[1], deviation[2]);						//11, 12, 13
-			fprintf(verboseAvoidance, " %f \t %f  \n  ", distance, cos_angle);													//14, 15
+										//14, 15
 			persistent_deviation = vector_sum(scalar_product(motion_persistence_weight, persistent_deviation),scalar_product(1-motion_persistence_weight, deviation));
+			for(int i = 0; i < dimensions; i++)
+				fprintf(verbose, "%f \t", y[i]);
+			for(int i = 0; i < dimensions; i++)
+				fprintf(verbose, "%f \t", vector_from_obstacle_to_actuator[i]);
+			for(int i = 0; i < dimensions; i++)
+				fprintf(verbose, "%f \t", obstacle[i]);
+			fprintf(verbose, "\n");
+			
+			
 		}
 		else
 		{
-			std::cout << "obstacle not in trajectory. \n";
+			printf("obstacle");
+			for (unsigned int i = 0; i < obstacle.size(); i++)
+				printf("%f, ",obstacle[i]);
+			printf(" not in trajectory. \n");
 		}
 	fprintf(deviationOutput, "%i \t %f \t %f \t %f \n",timestep, deviation[0], deviation[1], deviation[2]);
 	return deviation;

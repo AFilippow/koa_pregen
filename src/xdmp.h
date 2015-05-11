@@ -6,9 +6,9 @@
 #define ALPHA_V 1.0
 #define ALPHA_W 1.0
 
-#define LAMBDA 0.1
+#define LAMBDA 0.5
 #define BETA 2.0
-#define DISTANCE_SHORTENER 0.03//7 ///We cut this value in m off of every Distance to an obstacle to account for the finite size of the end effector
+#define DISTANCE_SHORTENER 0.2//7 ///We cut this value in m off of every Distance to an obstacle to account for the finite size of the end effector
 #define CALCULATED_GRADIENT 1
 class xDMP {
 	public:
@@ -64,6 +64,7 @@ class xDMP {
 	FILE * positionAndMotion;
 	FILE * verboseAvoidance;
 	FILE * goalfunction;
+	FILE * verbose;
    private:
       int dimensions;
       std::vector<float> s;
