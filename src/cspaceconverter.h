@@ -44,7 +44,6 @@
 #include <sstream>
 #include <string>
 
-#include "vectormath.h"
 //OROCOS KDL 
 #include "KukaLWR_DHnew.h"
 #include <kdl/chainfksolverpos_recursive.hpp>
@@ -71,7 +70,7 @@ class cspaceconverter {
 	
 	
 	vector< vector< vector< float > > > pointsData;
-	int examineDifference(vector<float> point1, vector<float> point2);
+	//int examineDifference(vector<float> point1, vector<float> point2);
 	
 	//void *runSlice(void *q3val);
 	void generate_points_data(KDL::Frame baseframe);

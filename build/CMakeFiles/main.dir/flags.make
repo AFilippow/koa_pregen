@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS = -O2 -g -DNDEBUG -I/home/andrej/Workspace/koa/include -I/opt/ros/hydro/include -I/opt/ros/hydro/include/opencv -I/usr/include/eigen3 -I/usr/include/pcl-1.7 -I/usr/include/ni -I/usr/include/vtk-5.8 -I/usr/include/qhull   
 
-CXX_DEFINES = -DROS_PACKAGE_NAME=\"koa\" -DBOOST_CB_DISABLE_DEBUG
+CXX_DEFINES = -DBOOST_CB_DISABLE_DEBUG -DROS_PACKAGE_NAME=\"koa\"
 
 # TARGET_FLAGS = -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread
 

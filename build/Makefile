@@ -35,6 +35,9 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# Escaping for special characters.
+EQUALS = =
+
 # The program to use to edit the cache.
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
@@ -497,102 +500,6 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/segmenter.o: src/segmenter.cpp.o
-.PHONY : src/segmenter.o
-
-# target to build an object file
-src/segmenter.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/segmenter.cpp.o
-.PHONY : src/segmenter.cpp.o
-
-src/segmenter.i: src/segmenter.cpp.i
-.PHONY : src/segmenter.i
-
-# target to preprocess a source file
-src/segmenter.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/segmenter.cpp.i
-.PHONY : src/segmenter.cpp.i
-
-src/segmenter.s: src/segmenter.cpp.s
-.PHONY : src/segmenter.s
-
-# target to generate assembly for a file
-src/segmenter.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/segmenter.cpp.s
-.PHONY : src/segmenter.cpp.s
-
-src/vectormath.o: src/vectormath.cpp.o
-.PHONY : src/vectormath.o
-
-# target to build an object file
-src/vectormath.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vectormath.cpp.o
-.PHONY : src/vectormath.cpp.o
-
-src/vectormath.i: src/vectormath.cpp.i
-.PHONY : src/vectormath.i
-
-# target to preprocess a source file
-src/vectormath.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vectormath.cpp.i
-.PHONY : src/vectormath.cpp.i
-
-src/vectormath.s: src/vectormath.cpp.s
-.PHONY : src/vectormath.s
-
-# target to generate assembly for a file
-src/vectormath.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vectormath.cpp.s
-.PHONY : src/vectormath.cpp.s
-
-src/vrepComm.o: src/vrepComm.cpp.o
-.PHONY : src/vrepComm.o
-
-# target to build an object file
-src/vrepComm.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vrepComm.cpp.o
-.PHONY : src/vrepComm.cpp.o
-
-src/vrepComm.i: src/vrepComm.cpp.i
-.PHONY : src/vrepComm.i
-
-# target to preprocess a source file
-src/vrepComm.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vrepComm.cpp.i
-.PHONY : src/vrepComm.cpp.i
-
-src/vrepComm.s: src/vrepComm.cpp.s
-.PHONY : src/vrepComm.s
-
-# target to generate assembly for a file
-src/vrepComm.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vrepComm.cpp.s
-.PHONY : src/vrepComm.cpp.s
-
-src/xdmp.o: src/xdmp.cpp.o
-.PHONY : src/xdmp.o
-
-# target to build an object file
-src/xdmp.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/xdmp.cpp.o
-.PHONY : src/xdmp.cpp.o
-
-src/xdmp.i: src/xdmp.cpp.i
-.PHONY : src/xdmp.i
-
-# target to preprocess a source file
-src/xdmp.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/xdmp.cpp.i
-.PHONY : src/xdmp.cpp.i
-
-src/xdmp.s: src/xdmp.cpp.s
-.PHONY : src/xdmp.s
-
-# target to generate assembly for a file
-src/xdmp.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/xdmp.cpp.s
-.PHONY : src/xdmp.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -636,18 +543,6 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/segmenter.o"
-	@echo "... src/segmenter.i"
-	@echo "... src/segmenter.s"
-	@echo "... src/vectormath.o"
-	@echo "... src/vectormath.i"
-	@echo "... src/vectormath.s"
-	@echo "... src/vrepComm.o"
-	@echo "... src/vrepComm.i"
-	@echo "... src/vrepComm.s"
-	@echo "... src/xdmp.o"
-	@echo "... src/xdmp.i"
-	@echo "... src/xdmp.s"
 .PHONY : help
 
 
