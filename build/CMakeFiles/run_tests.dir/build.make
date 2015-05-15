@@ -31,17 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The program to use to edit the cache.
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/andrej/Workspace/koa
+CMAKE_SOURCE_DIR = /home/afilippow/workspace/koa
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/andrej/Workspace/koa/build
+CMAKE_BINARY_DIR = /home/afilippow/workspace/koa/build
 
 # Utility rule file for run_tests.
 
@@ -63,6 +60,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/andrej/Workspace/koa/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/andrej/Workspace/koa /home/andrej/Workspace/koa /home/andrej/Workspace/koa/build /home/andrej/Workspace/koa/build /home/andrej/Workspace/koa/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/afilippow/workspace/koa/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/afilippow/workspace/koa /home/afilippow/workspace/koa /home/afilippow/workspace/koa/build /home/afilippow/workspace/koa/build /home/afilippow/workspace/koa/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 

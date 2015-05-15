@@ -32,7 +32,7 @@ cspaceconverter::cspaceconverter(){
 }*/
 float specialdistance(KDL::JntArray q1, vector<float> q2){
 	float result = 0;
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 6; i++)
 		result += (q1(i)-q2[i])*(q1(i)-q2[i]);
 	return sqrt(result);
 }
@@ -60,7 +60,7 @@ void* coarsenYZData(void* slicenumber){
 		for(int j = 0; j < 22; j++){
 			vector< vector< vector< float > > >obstacles(62); ///continue here
 			vector< vector< float > > counts(62);
-			std::ifstream  slicefile(("/home/andrej/Workspace/cspoutput/yzslices/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(), ios::in);		
+			std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/yzslices/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(), ios::in);		
 			while (std::getline(slicefile, line)){
 				std::istringstream iss(line);
 				if (!(iss >> x  >> point(0) >> point(1) >> point(2) >> point(3) >> point(4) >> point(5))) { printf("error: cannot read line!\n");break; }
@@ -90,7 +90,7 @@ void* coarsenYZData(void* slicenumber){
 			}
 		FILE * yzslice;
 			for (int x1 = 0; x1 < 62; x1++){
-				yzslice = fopen(("/home/andrej/Workspace/cspoutput/yzreduced/slice_"+boost::to_string(x1)+"_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(),"w");
+				yzslice = fopen(("/media/Raid/afilippow/cspoutput/yzreduced/slice_"+boost::to_string(x1)+"_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(),"w");
 				for (int i1 = 0; i1 < obstacles[x1].size(); i1++)
 					fprintf(yzslice,"%i \t %f \t %f \t %f \t %f \t %f \t %f \t %i \n",x1, obstacles[x1][i1][0], obstacles[x1][i1][1], obstacles[x1][i1][2], obstacles[x1][i1][3], obstacles[x1][i1][4], obstacles[x1][i1][5], counts[x1][i1]);
 			fclose(yzslice);
@@ -119,7 +119,7 @@ void rearrangeSlicesByYZ(){
 	KDL::JntArray point(6);
 	for (int i = 0; i < THREADNUMBER; i ++){
 		printf("at file %i currently  \n",i);
-		std::ifstream  slicefile(("/home/andrej/Workspace/cspoutput/sliceraster/slice_"+boost::to_string(i)+".dat").c_str(), ios::in);
+		std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/sliceraster/slice_"+boost::to_string(i)+".dat").c_str(), ios::in);
 		//std::cout << "Error: " << strerror(errno);
 		
 		while (std::getline(slicefile, line))
@@ -128,7 +128,7 @@ void rearrangeSlicesByYZ(){
 			std::istringstream iss(line);
 			if (!(iss >> x >> y >> z >> a >> point(0) >> point(1) >> point(2) >> point(3) >> point(4) >> point(5) >> b)) { printf("error: cannot read line!\n");break; }
 			//fprintf(yzslices[y*21+z],"%i \t %f \t %f \t %f \t %f \n", x, point(0), point(1), point(2), point(3));
-			yzslice = fopen(("/home/andrej/Workspace/cspoutput/yzslices/slice_"+boost::to_string(y)+"_"+boost::to_string(z)+".dat").c_str(),"a");
+			yzslice = fopen(("/media/Raid/afilippow/cspoutput/yzslices/slice_"+boost::to_string(y)+"_"+boost::to_string(z)+".dat").c_str(),"a");
 			fprintf(yzslice,"%i \t %f \t %f \t %f \t %f  \t %f  \t %f \n", x, point(0), point(1), point(2), point(3), point(4), point(5));
 			fclose(yzslice);
 		}
@@ -145,7 +145,7 @@ void* calculateObstacleCenters(void *slicenumber){
 		obstacles[i].resize(0);
 		//obstacles[i][0].resize(5); //downsampled Obstacle points are to be 4 coords + number of points already folded into this one
 	}
-	std::ifstream  slicefile(("/home/andrej/Workspace/cspoutput/slices/slice_"+boost::to_string(i1)+".dat").c_str());
+	std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/slices/slice_"+boost::to_string(i1)+".dat").c_str());
 	std::string line;
 	std::getline(slicefile,line); // get rid of the slice file header
 	float x, y, z;
@@ -187,7 +187,7 @@ void* calculateObstacleCenters(void *slicenumber){
 			obstacles[index][size][6] = 1;
 		}	
 	}
-	FILE * raster = fopen(("/home/andrej/Workspace/cspoutput/sliceraster/slice_"+boost::to_string(i1)+".dat").c_str(),"w");
+	FILE * raster = fopen(("/media/Raid/afilippow/cspoutput/sliceraster/slice_"+boost::to_string(i1)+".dat").c_str(),"w");
 	for (int i = 0; i < 62; i++)
 		for (int j = 0; j < 62; j++)
 			for (int k = 0; k < 22; k++) {
@@ -223,7 +223,7 @@ void* runSlice(void *q3val){
 	vector< vector < float > > position;
 	vector<float> a;
 
-	FILE * slicefile = fopen(("/home/andrej/Workspace/cspoutput/slices/slice_"+boost::to_string(i1)+".dat").c_str(),"w");
+	FILE * slicefile = fopen(("/media/Raid/afilippow/cspoutput/slices/slice_"+boost::to_string(i1)+".dat").c_str(),"w");
 	fprintf(slicefile,"SLICEFILE %i, joint position: %f \n",i1,q(2));
 
 	for (float i = -29; i <= 29; i+=1)	//51
@@ -287,7 +287,7 @@ void cspaceconverter::generate_points_data(KDL::Frame k) {
 	pthread_t threads[THREADNUMBER];
 	int **args = new int*[THREADNUMBER];
 	
-	for(int i = 0; i < THREADNUMBER; i++){
+	/*for(int i = 0; i < THREADNUMBER; i++){
 		args[i]  = new int[1];
 		args[i][0] = i;
 		int rc = pthread_create(&threads[i], NULL, runSlice, (void*)args[i]);
@@ -306,25 +306,37 @@ void cspaceconverter::generate_points_data(KDL::Frame k) {
 	for(int i = 0; i < THREADNUMBER; i++){
 		void **status;
 		int rc = pthread_join(threads[i],status);
-	}
+	}*/
 	
 	
-	rearrangeSlicesByYZ();
+	//rearrangeSlicesByYZ();
 	
-	for(int i = 0; i < THREADNUMBER; i++){
+	int i = 0;
+	int concurrent_threads = 20;
+	for(; i < concurrent_threads; i++){
 		args[i]  = new int[1];
 		args[i][0] = i;
-		//int rc = pthread_create(&threads[i], NULL, runSlice, (void*)args[i]);
-		//int rc = pthread_create(&threads[i], NULL, calculateObstacleCenters, (void*)args[i]);
 		int rc = pthread_create(&threads[i], NULL, coarsenYZData, (void*)args[i]);
-		
 	}
+	while (i < THREADNUMBER){
+	  void **status;
+	  for (int j = 0; j < concurrent_threads; j++){
+	    if (pthread_tryjoin_np(threads[j],status) == 0){
+	      i++;
+	      args[i] = new int[1];
+	      args[i][0] = i;
+	      int rc = pthread_create(&threads[j], NULL, coarsenYZData, (void*)args[i]);
+	    }
+	  }
+	}
+	
+
 	pthread_t extrathreads[1]; //just for coarsenYZData
 	int * arg = new int;
 	arg[0] = THREADNUMBER;
 	pthread_create(&extrathreads[0], NULL, coarsenYZData, (void*)arg);
 	
-	for(int i = 0; i < THREADNUMBER; i++){
+	for(int i = 0; i < concurrent_threads; i++){
 		void **status;
 		int rc = pthread_join(threads[i],status);
 	}

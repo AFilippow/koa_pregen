@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
-  "/home/andrej/Workspace/koa/lib/libgtest_main.pdb"
-  "/home/andrej/Workspace/koa/lib/libgtest_main.so"
+  "/home/afilippow/workspace/koa/lib/libgtest_main.pdb"
+  "/home/afilippow/workspace/koa/lib/libgtest_main.so"
 )
 
 # Per-language clean rules from dependency scanning.
