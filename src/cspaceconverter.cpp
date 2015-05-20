@@ -49,7 +49,7 @@ vector< float > toVector(KDL::JntArray i){
 	return output;
 }
 void* coarsenYZData(void* slicenumber){
-	int i = *(int*)slicenumber;
+	int slcnmbr = *(int*)slicenumber;
 
 	FILE * yzslice;
 	std::string line;
@@ -58,17 +58,17 @@ void* coarsenYZData(void* slicenumber){
 	time_t start = time(0);
 	//for (int i = 0; i < 62; i++){
 		for(int j = 0; j < 22; j++){
-			vector< vector< vector< float > > >obstacles(62); ///continue here
+			vector< vector< vector< float > > >obstacles(62); ///continue here //TODO need a better coarsening algorithm, use one kernel per 6-cube of side length 0.2 maybe?
 			vector< vector< float > > counts(62);
-			std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/yzslices/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(), ios::in);		
+			std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/yzslices/slice_"+boost::to_string(slcnmbr)+"_"+boost::to_string(j)+".dat").c_str(), ios::in);		
 			while (std::getline(slicefile, line)){
 				std::istringstream iss(line);
-				if (!(iss >> x  >> point(0) >> point(1) >> point(2) >> point(3) >> point(4) >> point(5))) { printf("error: cannot read line!\n");break; }
-					
+				if (!(iss >> x  >> point(0) >> point(1) >> point(2) >> point(3) >> point(4) >> point(5))) { printf("error: cannot read line!\n");continue; }
+				if (x< 0 || x > 61) { printf("error: corrupt data\n");continue; }
 				int count;
 				bool found = false;
 				for (int i = 0; i < obstacles[x].size(); i++){
-					if (specialdistance(point, obstacles[x][i]) < 0.2 && !found)
+					if (specialdistance(point, obstacles[x][i]) < 0.3 && !found)
 						{
 							count = counts[x][i];
 							for (int j = 0; j < 6; j++)
@@ -90,13 +90,13 @@ void* coarsenYZData(void* slicenumber){
 			}
 		FILE * yzslice;
 			for (int x1 = 0; x1 < 62; x1++){
-				yzslice = fopen(("/media/Raid/afilippow/cspoutput/yzreduced/slice_"+boost::to_string(x1)+"_"+boost::to_string(i)+"_"+boost::to_string(j)+".dat").c_str(),"w");
+				yzslice = fopen(("/media/Raid/afilippow/cspoutput/yzreduced/slice_"+boost::to_string(x1)+"_"+boost::to_string(slcnmbr)+"_"+boost::to_string(j)+".dat").c_str(),"w");
 				for (int i1 = 0; i1 < obstacles[x1].size(); i1++)
 					fprintf(yzslice,"%i \t %f \t %f \t %f \t %f \t %f \t %f \t %i \n",x1, obstacles[x1][i1][0], obstacles[x1][i1][1], obstacles[x1][i1][2], obstacles[x1][i1][3], obstacles[x1][i1][4], obstacles[x1][i1][5], counts[x1][i1]);
 			fclose(yzslice);
 			
 			}
-			printf("slice %i, %i of 22 done after %f seconds \n",i ,j,difftime( time(0), start));
+			printf("slice %i, %i of 22 done after %f seconds \n",slcnmbr ,j,difftime( time(0), start));
 
 		}
 
@@ -126,9 +126,9 @@ void rearrangeSlicesByYZ(){
 		{	
 			//printf(line.c_str());
 			std::istringstream iss(line);
-			if (!(iss >> x >> y >> z >> a >> point(0) >> point(1) >> point(2) >> point(3) >> point(4) >> point(5) >> b)) { printf("error: cannot read line!\n");break; }
+			if (!(iss >> x >> y >> z >> a >> point(0) >> point(1) >> point(2) >> point(3) >> point(4) >> point(5) >> b)) { printf("error: cannot read line!\n");break; } 
 			//fprintf(yzslices[y*21+z],"%i \t %f \t %f \t %f \t %f \n", x, point(0), point(1), point(2), point(3));
-			yzslice = fopen(("/media/Raid/afilippow/cspoutput/yzslices/slice_"+boost::to_string(y)+"_"+boost::to_string(z)+".dat").c_str(),"a");
+			yzslice = fopen(("/media/Raid/afilippow/cspoutput/yzslices/slice_"+boost::to_string(y)+"_"+boost::to_string(z)+".dat").c_str(),"a");//TODO important, this is very bad form, I need to rewrite everything here
 			fprintf(yzslice,"%i \t %f \t %f \t %f \t %f  \t %f  \t %f \n", x, point(0), point(1), point(2), point(3), point(4), point(5));
 			fclose(yzslice);
 		}
@@ -229,15 +229,15 @@ void* runSlice(void *q3val){
 	for (float i = -29; i <= 29; i+=1)	//51
 	{
 		/*for (float j = -18; j <= 18; j+=0.1)	//37
-		//for (float k = -25; k <= 25; k+=0.5) //51
+		//for (float k = -25; k <= 25; k+=0.5) //51* //TODO better precision needed here
 		for (float l = -18; l <= 18; l+=0.1)	// 37
 		for (float m = -25; m <= 25; m+=0.1)	// 37
 		for (float n = -18; n <= 18; n+=0.1)	// 37*/
-		for (float j = -18; j <= 18; j+=1)	//37
+		for (float j = -18; j <= 18; j+=2)	//37
 		//for (float k = -25; k <= 25; k+=0.5) //51
-		for (float l = -18; l <= 18; l+=1)	// 37
-		for (float m = -25; m <= 25; m+=1)	// 37
-		for (float n = -18; n <= 18; n+=1)	// 37
+		for (float l = -18; l <= 18; l+=2)	// 37
+		for (float m = -25; m <= 25; m+=2)	// 37
+		for (float n = -18; n <= 18; n+=2)	// 37
 		{
 			q(0) = i*PI/30.0f;
 			q(1) = j*PI/30.0f;
@@ -267,16 +267,34 @@ void* runSlice(void *q3val){
 			if (!(handposition.x() < -0.3 || handposition.y() < -0.15 || handposition.z() < 0 || handposition.x() > 0.3 || handposition.y() > 0.45 || handposition.z() > 0.2))
 			fprintf(slicefile,"%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",handposition.x(), handposition.y(), handposition.z(),q(0),q(1),q(2),q(3),q(4),q(5));	
 			kinematic_solver->JntToCart(q, cartpos, 4);
-			position = baseframe*cartpos.p;
-			if (!(position.x() < -0.3 || position.y() < -0.15 || position.z() < 0 || position.x() > 0.3 || position.y() > 0.45 || position.z() > 0.2))
-			fprintf(slicefile,"%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",position.x(), position.y(), position.z(),q(0),q(1),q(2),q(3),q(4),q(5));	
-
+			KDL::Vector position2 = baseframe*cartpos.p;
+			if (!(position2.x() < -0.3 || position2.y() < -0.15 || position2.z() < 0 || position2.x() > 0.3 || position2.y() > 0.45 || position2.z() > 0.2))
+			fprintf(slicefile,"%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",position2.x(), position2.y(), position2.z(),q(0),q(1),q(2),q(3),q(4),q(5));	
+			
+			KDL::Vector position3;
+			position3.x(position.x()/3.00+position2.x()*2.00/3.00);
+			position3.y(position.y()/3.00+position2.y()*2.00/3.00);
+			position3.z(position.z()/3.00+position2.z()*2.00/3.00);
+			if (!(position3.x() < -0.3 || position3.y() < -0.15 || position3.z() < 0 || position3.x() > 0.3 || position3.y() > 0.45 || position3.z() > 0.2))
+			fprintf(slicefile,"%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",position3.x(), position3.y(), position3.z(),q(0),q(1),q(2),q(3),q(4),q(5));
+			position3.x(position.x()*2.00/3.00+position2.x()/3.00);
+			position3.y(position.y()*2.00/3.00+position2.y()/3.00);
+			position3.z(position.z()*2.00/3.00+position2.z()/3.00);
+			if (!(position3.x() < -0.3 || position3.y() < -0.15 || position3.z() < 0 || position3.x() > 0.3 || position3.y() > 0.45 || position3.z() > 0.2))
+			fprintf(slicefile,"%f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \t %f \n",position3.x(), position3.y(), position3.z(),q(0),q(1),q(2),q(3),q(4),q(5));	
 			
 			
 		}
 	printf("slice %i at %f percent \n", i1, ((float)i+29)*100.0f/58.0f);
 	}
 	pthread_exit(NULL);
+}
+
+void* dummyCheckThreading(void* input){
+  printf("Hello, i am thread %i!\n",*(int*)input);
+  for(int i =0; i < 10000; i++)
+  {}
+  pthread_exit(NULL);
 }
 void cspaceconverter::generate_points_data(KDL::Frame k) {
 	baseframe = k;
@@ -309,23 +327,87 @@ void cspaceconverter::generate_points_data(KDL::Frame k) {
 	}*/
 	
 	
-	//rearrangeSlicesByYZ();
+	//
+	
+	
+	
 	
 	int i = 0;
 	int concurrent_threads = 20;
+	
+	
+	for(; i < concurrent_threads; i++){
+		args[i]  = new int[1];
+		args[i][0] = i;
+		int rc = pthread_create(&threads[i], NULL, runSlice, (void*)args[i]);
+	}
+	while (i < THREADNUMBER-1){
+	  void **status;
+	  for (int j = 0; j < concurrent_threads; j++){
+	    if (i >= THREADNUMBER-1) break;
+	    if (pthread_tryjoin_np(threads[j],status) == 0){
+	      i++;
+	      args[i] = new int[1];
+	      args[i][0] = i;
+	      int rc = pthread_create(&threads[j], NULL, runSlice, (void*)args[i]);
+	    }
+	  }
+	}
+	for(int i = 0; i < concurrent_threads; i++){
+		void **status;
+		int rc = pthread_join(threads[i],status);
+	}
+	
+	
+	
+	
+	i = 0;
+	for(; i < concurrent_threads; i++){
+		args[i]  = new int[1];
+		args[i][0] = i;
+		int rc = pthread_create(&threads[i], NULL, calculateObstacleCenters, (void*)args[i]);
+	}
+	while (i < THREADNUMBER-1){
+	  void **status;
+	  for (int j = 0; j < concurrent_threads; j++){
+	    if (i >= THREADNUMBER-1) break;
+	    if (pthread_tryjoin_np(threads[j],status) == 0){
+	      i++;
+	      args[i] = new int[1];
+	      args[i][0] = i;
+	      int rc = pthread_create(&threads[j], NULL, calculateObstacleCenters, (void*)args[i]);
+	    }
+	  }
+	}
+	for(int i = 0; i < concurrent_threads; i++){
+		void **status;
+		int rc = pthread_join(threads[i],status);
+	}
+	
+	
+	
+	
+	rearrangeSlicesByYZ();
+	
+	
+	
+	i = 0;
 	for(; i < concurrent_threads; i++){
 		args[i]  = new int[1];
 		args[i][0] = i;
 		int rc = pthread_create(&threads[i], NULL, coarsenYZData, (void*)args[i]);
+		//int rc = pthread_create(&threads[i], NULL, dummyCheckThreading, (void*)args[i]);
 	}
-	while (i < THREADNUMBER){
+	while (i < THREADNUMBER-1){
 	  void **status;
 	  for (int j = 0; j < concurrent_threads; j++){
+	    if (i >= THREADNUMBER-1) break;
 	    if (pthread_tryjoin_np(threads[j],status) == 0){
 	      i++;
 	      args[i] = new int[1];
 	      args[i][0] = i;
 	      int rc = pthread_create(&threads[j], NULL, coarsenYZData, (void*)args[i]);
+	      //int rc = pthread_create(&threads[j], NULL, dummyCheckThreading, (void*)args[i]);
 	    }
 	  }
 	}
@@ -335,7 +417,7 @@ void cspaceconverter::generate_points_data(KDL::Frame k) {
 	int * arg = new int;
 	arg[0] = THREADNUMBER;
 	pthread_create(&extrathreads[0], NULL, coarsenYZData, (void*)arg);
-	
+	//pthread_create(&extrathreads[0], NULL, dummyCheckThreading, (void*)arg);
 	for(int i = 0; i < concurrent_threads; i++){
 		void **status;
 		int rc = pthread_join(threads[i],status);
