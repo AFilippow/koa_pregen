@@ -35,22 +35,19 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/afilippow/workspace/koa
+CMAKE_SOURCE_DIR = /home/andrej/Workspace/koa_pregen
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/afilippow/workspace/koa/build
+CMAKE_BINARY_DIR = /home/andrej/Workspace/koa_pregen/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -110,9 +107,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/afilippow/workspace/koa/build/CMakeFiles /home/afilippow/workspace/koa/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrej/Workspace/koa_pregen/build/CMakeFiles /home/andrej/Workspace/koa_pregen/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/afilippow/workspace/koa/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrej/Workspace/koa_pregen/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -449,29 +446,29 @@ src/KukaLWR_DHnew.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s
 .PHONY : src/KukaLWR_DHnew.cpp.s
 
-src/cspaceconverter.o: src/cspaceconverter.cpp.o
-.PHONY : src/cspaceconverter.o
+src/koa_wqueue.o: src/koa_wqueue.cpp.o
+.PHONY : src/koa_wqueue.o
 
 # target to build an object file
-src/cspaceconverter.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.o
-.PHONY : src/cspaceconverter.cpp.o
+src/koa_wqueue.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/koa_wqueue.cpp.o
+.PHONY : src/koa_wqueue.cpp.o
 
-src/cspaceconverter.i: src/cspaceconverter.cpp.i
-.PHONY : src/cspaceconverter.i
+src/koa_wqueue.i: src/koa_wqueue.cpp.i
+.PHONY : src/koa_wqueue.i
 
 # target to preprocess a source file
-src/cspaceconverter.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.i
-.PHONY : src/cspaceconverter.cpp.i
+src/koa_wqueue.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/koa_wqueue.cpp.i
+.PHONY : src/koa_wqueue.cpp.i
 
-src/cspaceconverter.s: src/cspaceconverter.cpp.s
-.PHONY : src/cspaceconverter.s
+src/koa_wqueue.s: src/koa_wqueue.cpp.s
+.PHONY : src/koa_wqueue.s
 
 # target to generate assembly for a file
-src/cspaceconverter.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.s
-.PHONY : src/cspaceconverter.cpp.s
+src/koa_wqueue.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/koa_wqueue.cpp.s
+.PHONY : src/koa_wqueue.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -496,6 +493,30 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/threadpool.o: src/threadpool.cpp.o
+.PHONY : src/threadpool.o
+
+# target to build an object file
+src/threadpool.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/threadpool.cpp.o
+.PHONY : src/threadpool.cpp.o
+
+src/threadpool.i: src/threadpool.cpp.i
+.PHONY : src/threadpool.i
+
+# target to preprocess a source file
+src/threadpool.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/threadpool.cpp.i
+.PHONY : src/threadpool.cpp.i
+
+src/threadpool.s: src/threadpool.cpp.s
+.PHONY : src/threadpool.s
+
+# target to generate assembly for a file
+src/threadpool.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/threadpool.cpp.s
+.PHONY : src/threadpool.cpp.s
 
 # Help Target
 help:
@@ -534,12 +555,15 @@ help:
 	@echo "... src/KukaLWR_DHnew.o"
 	@echo "... src/KukaLWR_DHnew.i"
 	@echo "... src/KukaLWR_DHnew.s"
-	@echo "... src/cspaceconverter.o"
-	@echo "... src/cspaceconverter.i"
-	@echo "... src/cspaceconverter.s"
+	@echo "... src/koa_wqueue.o"
+	@echo "... src/koa_wqueue.i"
+	@echo "... src/koa_wqueue.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/threadpool.o"
+	@echo "... src/threadpool.i"
+	@echo "... src/threadpool.s"
 .PHONY : help
 
 

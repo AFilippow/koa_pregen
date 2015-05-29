@@ -1,6 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/main.cpp.o"
-  "CMakeFiles/main.dir/src/cspaceconverter.cpp.o"
+  "CMakeFiles/main.dir/src/threadpool.cpp.o"
+  "CMakeFiles/main.dir/src/koa_wqueue.cpp.o"
   "CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
   "../bin/main.pdb"
   "../bin/main"

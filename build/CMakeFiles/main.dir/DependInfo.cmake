@@ -4,14 +4,16 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/afilippow/workspace/koa/src/KukaLWR_DHnew.cpp" "/home/afilippow/workspace/koa/build/CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
-  "/home/afilippow/workspace/koa/src/cspaceconverter.cpp" "/home/afilippow/workspace/koa/build/CMakeFiles/main.dir/src/cspaceconverter.cpp.o"
-  "/home/afilippow/workspace/koa/src/main.cpp" "/home/afilippow/workspace/koa/build/CMakeFiles/main.dir/src/main.cpp.o"
+  "/home/andrej/Workspace/koa_pregen/src/KukaLWR_DHnew.cpp" "/home/andrej/Workspace/koa_pregen/build/CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
+  "/home/andrej/Workspace/koa_pregen/src/koa_wqueue.cpp" "/home/andrej/Workspace/koa_pregen/build/CMakeFiles/main.dir/src/koa_wqueue.cpp.o"
+  "/home/andrej/Workspace/koa_pregen/src/main.cpp" "/home/andrej/Workspace/koa_pregen/build/CMakeFiles/main.dir/src/main.cpp.o"
+  "/home/andrej/Workspace/koa_pregen/src/threadpool.cpp" "/home/andrej/Workspace/koa_pregen/build/CMakeFiles/main.dir/src/threadpool.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
+  "ROS_PACKAGE_NAME=\"koa_pregen\""
   "BOOST_CB_DISABLE_DEBUG"
   )
 

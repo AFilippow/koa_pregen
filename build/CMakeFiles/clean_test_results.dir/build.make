@@ -31,14 +31,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/afilippow/workspace/koa
+CMAKE_SOURCE_DIR = /home/andrej/Workspace/koa_pregen
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/afilippow/workspace/koa/build
+CMAKE_BINARY_DIR = /home/andrej/Workspace/koa_pregen/build
 
 # Utility rule file for clean_test_results.
 
@@ -46,7 +43,7 @@ CMAKE_BINARY_DIR = /home/afilippow/workspace/koa/build
 include CMakeFiles/clean_test_results.dir/progress.make
 
 CMakeFiles/clean_test_results:
-	/usr/bin/cmake -E remove_directory /home/afilippow/workspace/koa/build/test_results
+	/usr/bin/cmake -E remove_directory /home/andrej/Workspace/koa_pregen/build/test_results
 
 clean_test_results: CMakeFiles/clean_test_results
 clean_test_results: CMakeFiles/clean_test_results.dir/build.make
@@ -61,6 +58,6 @@ CMakeFiles/clean_test_results.dir/clean:
 .PHONY : CMakeFiles/clean_test_results.dir/clean
 
 CMakeFiles/clean_test_results.dir/depend:
-	cd /home/afilippow/workspace/koa/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/afilippow/workspace/koa /home/afilippow/workspace/koa /home/afilippow/workspace/koa/build /home/afilippow/workspace/koa/build /home/afilippow/workspace/koa/build/CMakeFiles/clean_test_results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/andrej/Workspace/koa_pregen/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/andrej/Workspace/koa_pregen /home/andrej/Workspace/koa_pregen /home/andrej/Workspace/koa_pregen/build /home/andrej/Workspace/koa_pregen/build /home/andrej/Workspace/koa_pregen/build/CMakeFiles/clean_test_results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/clean_test_results.dir/depend
 

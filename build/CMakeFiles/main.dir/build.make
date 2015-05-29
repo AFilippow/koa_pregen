@@ -31,14 +31,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/afilippow/workspace/koa
+CMAKE_SOURCE_DIR = /home/andrej/Workspace/koa_pregen
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/afilippow/workspace/koa/build
+CMAKE_BINARY_DIR = /home/andrej/Workspace/koa_pregen/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -52,59 +49,79 @@ include CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/main.dir/src/main.cpp.o: ../manifest.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/cpp_common/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rostime/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/roscpp_traits/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/roscpp_serialization/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/genmsg/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/genpy/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/message_runtime/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/std_msgs/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rosgraph/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rosgraph_msgs/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/catkin/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rospack/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/roslib/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rospy/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rosconsole/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/xmlrpcpp/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/roscpp/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/geometry_msgs/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/sensor_msgs/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/opencv2/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/cv_bridge/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/message_filters/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/console_bridge/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/class_loader/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/pluginlib/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/image_transport/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/topic_tools/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rosbag/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rosmsg/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/rosservice/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/dynamic_reconfigure/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/bond/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/smclib/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/bondcpp/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/nodelet/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/nodelet_topic_tools/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/flann/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/pcl_msgs/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/pcl/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/tf/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/pcl_ros/package.xml
-CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/groovy/share/orocos_kdl/package.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/afilippow/workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosbuild/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosbag_storage/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/main.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa_pregen/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -o CMakeFiles/main.dir/src/main.cpp.o -c /home/afilippow/workspace/koa/src/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -o CMakeFiles/main.dir/src/main.cpp.o -c /home/andrej/Workspace/koa_pregen/src/main.cpp
 
 CMakeFiles/main.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -E /home/afilippow/workspace/koa/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -E /home/andrej/Workspace/koa_pregen/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
 
 CMakeFiles/main.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -S /home/afilippow/workspace/koa/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -S /home/andrej/Workspace/koa_pregen/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
 
 CMakeFiles/main.dir/src/main.cpp.o.requires:
 .PHONY : CMakeFiles/main.dir/src/main.cpp.o.requires
@@ -115,128 +132,254 @@ CMakeFiles/main.dir/src/main.cpp.o.provides: CMakeFiles/main.dir/src/main.cpp.o.
 
 CMakeFiles/main.dir/src/main.cpp.o.provides.build: CMakeFiles/main.dir/src/main.cpp.o
 
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: ../src/cspaceconverter.cpp
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: ../manifest.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/cpp_common/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rostime/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/roscpp_traits/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/roscpp_serialization/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/genmsg/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/genpy/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/message_runtime/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/std_msgs/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rosgraph/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rosgraph_msgs/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/catkin/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rospack/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/roslib/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rospy/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rosconsole/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/xmlrpcpp/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/roscpp/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/geometry_msgs/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/sensor_msgs/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/opencv2/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/cv_bridge/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/message_filters/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/console_bridge/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/class_loader/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/pluginlib/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/image_transport/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/topic_tools/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rosbag/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rosmsg/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/rosservice/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/dynamic_reconfigure/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/bond/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/smclib/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/bondcpp/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/nodelet/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/nodelet_topic_tools/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/flann/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/pcl_msgs/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/pcl/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/tf/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/pcl_ros/package.xml
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o: /opt/ros/groovy/share/orocos_kdl/package.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/afilippow/workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/cspaceconverter.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -o CMakeFiles/main.dir/src/cspaceconverter.cpp.o -c /home/afilippow/workspace/koa/src/cspaceconverter.cpp
+CMakeFiles/main.dir/src/threadpool.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/threadpool.cpp.o: ../src/threadpool.cpp
+CMakeFiles/main.dir/src/threadpool.cpp.o: ../manifest.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosbuild/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosbag_storage/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/threadpool.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa_pregen/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/threadpool.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -o CMakeFiles/main.dir/src/threadpool.cpp.o -c /home/andrej/Workspace/koa_pregen/src/threadpool.cpp
 
-CMakeFiles/main.dir/src/cspaceconverter.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/cspaceconverter.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -E /home/afilippow/workspace/koa/src/cspaceconverter.cpp > CMakeFiles/main.dir/src/cspaceconverter.cpp.i
+CMakeFiles/main.dir/src/threadpool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/threadpool.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -E /home/andrej/Workspace/koa_pregen/src/threadpool.cpp > CMakeFiles/main.dir/src/threadpool.cpp.i
 
-CMakeFiles/main.dir/src/cspaceconverter.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/cspaceconverter.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -S /home/afilippow/workspace/koa/src/cspaceconverter.cpp -o CMakeFiles/main.dir/src/cspaceconverter.cpp.s
+CMakeFiles/main.dir/src/threadpool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/threadpool.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -S /home/andrej/Workspace/koa_pregen/src/threadpool.cpp -o CMakeFiles/main.dir/src/threadpool.cpp.s
 
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires:
-.PHONY : CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires
+CMakeFiles/main.dir/src/threadpool.cpp.o.requires:
+.PHONY : CMakeFiles/main.dir/src/threadpool.cpp.o.requires
 
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides: CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides.build
-.PHONY : CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides
+CMakeFiles/main.dir/src/threadpool.cpp.o.provides: CMakeFiles/main.dir/src/threadpool.cpp.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/threadpool.cpp.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/threadpool.cpp.o.provides
 
-CMakeFiles/main.dir/src/cspaceconverter.cpp.o.provides.build: CMakeFiles/main.dir/src/cspaceconverter.cpp.o
+CMakeFiles/main.dir/src/threadpool.cpp.o.provides.build: CMakeFiles/main.dir/src/threadpool.cpp.o
+
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: ../src/koa_wqueue.cpp
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: ../manifest.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosbuild/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosbag_storage/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa_pregen/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/koa_wqueue.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -o CMakeFiles/main.dir/src/koa_wqueue.cpp.o -c /home/andrej/Workspace/koa_pregen/src/koa_wqueue.cpp
+
+CMakeFiles/main.dir/src/koa_wqueue.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/koa_wqueue.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -E /home/andrej/Workspace/koa_pregen/src/koa_wqueue.cpp > CMakeFiles/main.dir/src/koa_wqueue.cpp.i
+
+CMakeFiles/main.dir/src/koa_wqueue.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/koa_wqueue.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -S /home/andrej/Workspace/koa_pregen/src/koa_wqueue.cpp -o CMakeFiles/main.dir/src/koa_wqueue.cpp.s
+
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o.requires:
+.PHONY : CMakeFiles/main.dir/src/koa_wqueue.cpp.o.requires
+
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o.provides: CMakeFiles/main.dir/src/koa_wqueue.cpp.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/koa_wqueue.cpp.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/koa_wqueue.cpp.o.provides
+
+CMakeFiles/main.dir/src/koa_wqueue.cpp.o.provides.build: CMakeFiles/main.dir/src/koa_wqueue.cpp.o
 
 CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: ../src/KukaLWR_DHnew.cpp
 CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: ../manifest.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/cpp_common/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rostime/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/roscpp_traits/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/roscpp_serialization/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/genmsg/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/genpy/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/message_runtime/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/std_msgs/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rosgraph/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rosgraph_msgs/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/catkin/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rospack/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/roslib/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rospy/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rosconsole/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/xmlrpcpp/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/roscpp/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/geometry_msgs/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/sensor_msgs/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/opencv2/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/cv_bridge/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/message_filters/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/console_bridge/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/class_loader/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/pluginlib/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/image_transport/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/topic_tools/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rosbag/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rosmsg/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/rosservice/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/dynamic_reconfigure/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/bond/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/smclib/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/bondcpp/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/nodelet/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/nodelet_topic_tools/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/flann/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/pcl_msgs/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/pcl/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/tf/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/pcl_ros/package.xml
-CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/groovy/share/orocos_kdl/package.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/afilippow/workspace/koa/build/CMakeFiles $(CMAKE_PROGRESS_3)
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/catkin/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/console_bridge/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/cpp_common/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rostime/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roscpp_traits/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roscpp_serialization/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/genmsg/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/genpy/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/message_runtime/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/std_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/gencpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/genlisp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/message_generation/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosbuild/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosconsole/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosgraph_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/xmlrpcpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roscpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosgraph/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rospack/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roslib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rospy/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/geometry_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/sensor_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/opencv2/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/cv_bridge/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/message_filters/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/class_loader/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pluginlib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/image_transport/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosbag_storage/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/topic_tools/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosbag/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosmsg/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosservice/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/dynamic_reconfigure/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/bond/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/smclib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/bondcpp/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/nodelet/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/nodelet_topic_tools/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pcl_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pcl_conversions/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosclean/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosmaster/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosout/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosparam/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roslaunch/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rostopic/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosnode/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/roswtf/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/actionlib_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2_msgs/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rosunit/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/rostest/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/actionlib/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2_py/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf2_ros/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/tf/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/pcl_ros/package.xml
+CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o: /opt/ros/hydro/share/orocos_kdl/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/andrej/Workspace/koa_pregen/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -o CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o -c /home/afilippow/workspace/koa/src/KukaLWR_DHnew.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -o CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o -c /home/andrej/Workspace/koa_pregen/src/KukaLWR_DHnew.cpp
 
 CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -E /home/afilippow/workspace/koa/src/KukaLWR_DHnew.cpp > CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -E /home/andrej/Workspace/koa_pregen/src/KukaLWR_DHnew.cpp > CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.i
 
 CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -S /home/afilippow/workspace/koa/src/KukaLWR_DHnew.cpp -o CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -O0 -pthread -S /home/andrej/Workspace/koa_pregen/src/KukaLWR_DHnew.cpp -o CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.s
 
 CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires:
 .PHONY : CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires
@@ -250,14 +393,16 @@ CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.provides.build: CMakeFiles/main.dir/
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/main.cpp.o" \
-"CMakeFiles/main.dir/src/cspaceconverter.cpp.o" \
+"CMakeFiles/main.dir/src/threadpool.cpp.o" \
+"CMakeFiles/main.dir/src/koa_wqueue.cpp.o" \
 "CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
 ../bin/main: CMakeFiles/main.dir/src/main.cpp.o
-../bin/main: CMakeFiles/main.dir/src/cspaceconverter.cpp.o
+../bin/main: CMakeFiles/main.dir/src/threadpool.cpp.o
+../bin/main: CMakeFiles/main.dir/src/koa_wqueue.cpp.o
 ../bin/main: CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o
 ../bin/main: /usr/lib/libvtkCommon.so.5.8.0
 ../bin/main: /usr/lib/libvtkFiltering.so.5.8.0
@@ -297,7 +442,8 @@ CMakeFiles/main.dir/build: ../bin/main
 .PHONY : CMakeFiles/main.dir/build
 
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/main.cpp.o.requires
-CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/cspaceconverter.cpp.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/threadpool.cpp.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/koa_wqueue.cpp.o.requires
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/KukaLWR_DHnew.cpp.o.requires
 .PHONY : CMakeFiles/main.dir/requires
 
@@ -306,6 +452,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	cd /home/afilippow/workspace/koa/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/afilippow/workspace/koa /home/afilippow/workspace/koa /home/afilippow/workspace/koa/build /home/afilippow/workspace/koa/build /home/afilippow/workspace/koa/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/andrej/Workspace/koa_pregen/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/andrej/Workspace/koa_pregen /home/andrej/Workspace/koa_pregen /home/andrej/Workspace/koa_pregen/build /home/andrej/Workspace/koa_pregen/build /home/andrej/Workspace/koa_pregen/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main.dir/depend
 

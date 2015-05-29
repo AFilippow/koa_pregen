@@ -5,6 +5,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
 
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
+  "ROS_PACKAGE_NAME=\"koa_pregen\""
   "BOOST_CB_DISABLE_DEBUG"
   )
 

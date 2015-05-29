@@ -22,13 +22,13 @@ include_directories(${VTK_INCLUDE_DIRS})
 
 
 
-SET(detector_SOURCES src/main.cpp   src/cspaceconverter.cpp src/KukaLWR_DHnew.cpp) 
-SET(detector_HEADERS  src/cspaceconverter.h src/KukaLWR_DHnew.h) 
+SET(detector_SOURCES src/main.cpp   src/threadpool.cpp src/koa_wqueue.cpp src/KukaLWR_DHnew.cpp) 
+SET(detector_HEADERS  src/threadpool.h src/koa_wqueue.h src/KukaLWR_DHnew.h) 
 
 rosbuild_add_executable(main ${detector_SOURCES} ${detector_HEADERS})
 rosbuild_add_boost_directories()
 rosbuild_link_boost(main signals)
-rosbuild_add_compile_flags(main -O0)
+rosbuild_add_compile_flags(main -O0 -pthread)
 target_link_libraries(main ${QT_QTCORE_LIBRARY} ${OROCOS_KDL} ${QT_QTGUI_LIBRARY} ${QT_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBS} ${QT_QTXML_LIBRARY} ${VTK_LIBRARIES})
  
  

@@ -42,7 +42,7 @@
 
 #include <time.h> 
 
-#include "cspaceconverter.h"
+#include "threadpool.h"
 
 //SocketComm was written to communicate with the Morse simulator, V-REP does not need it
 //#include "SocketComm.h"
@@ -56,10 +56,10 @@ cspaceconverter * CSP;
 //---------------------------------------------------------------------------------------------------------------------//
 int main(int argc, char** argv)
 { 
-	CSP = new cspaceconverter();
-	KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
-
-
+	//CSP = new cspaceconverter();
+	//KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
+	threadpool thrdpl(51, 2, 6);
+	thrdpl.run();
 	/*KDL::JntArray q(7);
 	q(0) = 1.57;
 	q(1) = 0;
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 	printf("Pos1 = %f, %f, %f: Pos2 = %f, %f, %f \n", position(0), position(1), position(2), position2(0), position2(1), position2(2));
 	*/
 
-	CSP->generate_points_data(k);
+	//CSP->generate_points_data(k);
 	return 1;
 }
 //---------------------------------------------------------------------------------------------------------------------//
