@@ -90,6 +90,7 @@ class threadpool {
 
 public:
 threadpool() {threadpool(51, 6, 16);};
+void log(string str)
 threadpool(int param_totalgenthreads, int param_maxsortthreads, int param_maxconcthreads);
 int total_generator_threads, max_concurrent_threads, current_generator_threads, max_concurrent_generator_threads, max_concurrent_sorter_threads, finished_generator_threads;
 queuepool qpool;
