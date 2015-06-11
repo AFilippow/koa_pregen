@@ -72,7 +72,19 @@ struct queue_saving_params{
 	}
 	
 };
-
+struct coarsening_params{
+	int x,y,z,threadnumber;
+	threadpool * parentThreadpool;
+	coarsening_params(int par_x, int par_y, int par_z, threadpool * par_thrpl, int par_threadnumber)
+	{
+		x = par_x;
+		y = par_y;
+		z = par_z;
+		parentThreadpool = par_thrpl;
+		threadnumber = par_threadnumber;
+	}
+	
+};
 
 struct threadParams{
 	threadpool * parentThreadpool;	
@@ -94,14 +106,15 @@ threadpool(int param_totalgenthreads, int param_maxsortthreads, int param_maxcon
 int total_generator_threads, max_concurrent_threads, current_generator_threads, max_concurrent_generator_threads, max_concurrent_sorter_threads, finished_generator_threads;
 queuepool qpool;
 bool generators_finished;
-pthread_t *generators, *sorters;
-int *threadstatus_generators, *threadstatus_sorters;
+pthread_t *generators, *sorters, *binners;
+int *threadstatus_generators, *threadstatus_sorters, *threadstatus_binners ;
 FILE* mainlog;
 
 int* get_generator_status_pointer(int i);
 int run();
 int launch_next_generator_thread(int thread_index, int slicenumber);
 int launch_next_sorter_thread(int thread_index, int lowerbound, int upperbound);
+int launch_next_binning_thread(int par_i, int par_j, int par_k, int par_thrdnmbr);
 };
 
 

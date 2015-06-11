@@ -1,9 +1,9 @@
 #include "threadpool.h"
 
-float specialdistance(KDL::JntArray q1, vector<float> q2){
+float specialdistance(vector<float> q1, vector<float> q2){
 	float result = 0;
 	for (int i = 0; i < 6; i++)
-		result += (q1(i)-q2[i])*(q1(i)-q2[i]);
+		result += (q1[i]-q2[i])*(q1[i]-q2[i]);
 	return sqrt(result);
 }
 KDL::JntArray toJointArray(vector< float > i){
@@ -31,8 +31,9 @@ threadpool::threadpool(int param_totalgenthreads, int param_maxsortthreads, int 
 	total_generator_threads = param_totalgenthreads;
 	max_concurrent_sorter_threads = param_maxsortthreads;
 	max_concurrent_generator_threads = param_maxconcthreads - max_concurrent_sorter_threads;
-	threadstatus_generators = new int[max_concurrent_generator_threads+2]; ///+2 for valgrind to stop complaining
-	threadstatus_sorters = new int[max_concurrent_sorter_threads+2];
+	threadstatus_generators = new int[max_concurrent_generator_threads];
+	threadstatus_sorters = new int[max_concurrent_sorter_threads];
+	threadstatus_binners = new int[param_maxconcthreads];
 	for (int i = 0; i < max_concurrent_generator_threads; i++){
 		threadstatus_generators[i] = 0;
 	}
@@ -40,8 +41,13 @@ threadpool::threadpool(int param_totalgenthreads, int param_maxsortthreads, int 
 
 		threadstatus_sorters[i] = 0;
 	}
-	generators = new pthread_t[max_concurrent_generator_threads+2];
-	sorters = new pthread_t[max_concurrent_sorter_threads+2];
+	for (int i = 0; i < param_maxconcthreads; i++){
+
+		threadstatus_binners[i] = 0;
+	}
+	generators = new pthread_t[max_concurrent_generator_threads];
+	sorters = new pthread_t[max_concurrent_sorter_threads];
+	binners = new pthread_t[param_maxconcthreads];
 	finished_generator_threads = 0;
 	current_generator_threads = 0;
 	generators_finished = false;
@@ -74,9 +80,60 @@ void enqueue_multiplet(multiplet par_multiplet, threadpool* par_thrdpl){
 	}
 	queue->add(par_multiplet);
 }
+vector<float> bin(vector<float> input){
+	vector<float> output = input;
+	for (int i = 0; i < output.size(); i++)
+		output[i] = 0.2*floor(output[i]*5);
+	return output;
+}
 
 
 
+void* coarsenData(void* par_void){
+	coarsening_params params = *(coarsening_params*) par_void;
+	int rx, ry, rz;
+	FILE * yzslice;
+	std::string line;
+	vector<float> point(6);
+	time_t start = time(0);
+
+	vector< vector< float > >obstacles(0); ///continue here //TODO need a better coarsening algorithm, use one kernel per 6-cube of side length 0.2 maybe?
+	vector< float > counts(0);
+	std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/slices/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(), ios::in);		
+	while (std::getline(slicefile, line)){
+		std::istringstream iss(line);
+		if (!(iss >> rx >> ry >> rz >> point[0] >> point[1] >> point[2] >> point[3] >> point[4] >> point[5])) { printf("error: cannot read line!\n");continue; }
+		int count;
+		bool found = false;
+		for (int i = 0; i < obstacles.size(); i++){
+			if (specialdistance(bin(point), bin(obstacles[i])) < 0.05 && !found)
+				{
+					count = counts[i];
+					for (int j = 0; j < 6; j++)
+						obstacles[i][j] = (obstacles[i][j]+point[j]/((float)count))*((float)count)/((float)count+1);
+					counts[i]++;
+					found = true;
+					break;
+				}
+		}
+		if(!found){
+			int size = obstacles.size();
+			obstacles.resize(size +1);
+			obstacles[size].resize(6);
+			counts.resize(size+1);
+			for (int j = 0; j < 6; j++)
+				obstacles[size][j] = point[j];
+			counts[size] = 1;
+		}	
+			
+	}
+	yzslice = fopen(("/media/Raid/afilippow/cspoutput/slicereduced/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(),"w");
+	for (int i1 = 0; i1 < obstacles.size(); i1++)
+		fprintf(yzslice,"%f \t %f \t %f \t %f \t %f \t %f \t %i \n", obstacles[i1][0], obstacles[i1][1], obstacles[i1][2], obstacles[i1][3], obstacles[i1][4], obstacles[i1][5], counts[i1]);
+	fclose(yzslice);
+	printf("slice %i, %i%, %i done after %f seconds \n", params.x, params.y, params.z, difftime( time(0), start));
+	params.parentThreadpool->threadstatus_binners[params.threadnumber] = FINISHED;
+}
 void* save_queues_to_disk(void* par1void){
 	queue_saving_params params = *(queue_saving_params*)par1void;
 	while (!params.parentThreadpool->generators_finished){
@@ -249,7 +306,45 @@ int threadpool::run(){
 	
 	for(int i = 0; i <max_concurrent_sorter_threads; i++)
 	   pthread_join(sorters[i], NULL);
+	      
 	sleep(10);
+	int finished_binning_threads = 0;
+	int running_binning_threads = 0;
+	int total_binning_threads = 61*61*21;
+	current_examined_thread_index = 0;
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	while (finished_binning_threads < total_binning_threads){
+		if (threadstatus_binners[current_examined_thread_index] == FINISHED){
+			pthread_join(binners[current_examined_thread_index], NULL);
+			finished_binning_threads++;
+			running_binning_threads--;
+			threadstatus_binners[current_examined_thread_index] = UNCREATED;
+		}
+		if ((finished_binning_threads + running_binning_threads < total_binning_threads) && (threadstatus_binners[current_examined_thread_index] == UNCREATED)){
+			i++;
+			if (i == 61){
+				i = 0;
+				j++;
+				if ( j = 61){
+					j = 0;
+					k++;
+				}
+			}
+			running_binning_threads++;
+			threadstatus_binners[current_examined_thread_index] = BUSY;
+			launch_next_binning_thread(i, j, k, current_examined_thread_index);
+			fprintf(mainlog, "Binning thread %i,%i,%i launched\n",i,j,k);
+		}
+		current_examined_thread_index++;
+		if (current_examined_thread_index == max_concurrent_generator_threads+max_concurrent_sorter_threads)
+ 			current_examined_thread_index = 0;
+	}
+	
+	
+	///TODO continue here
+	
 	fclose(mainlog);
 }
 int threadpool::launch_next_sorter_thread(int thread_index, int lowerbound, int upperbound){
@@ -260,4 +355,8 @@ int threadpool::launch_next_sorter_thread(int thread_index, int lowerbound, int 
 int threadpool::launch_next_generator_thread(int thread_index, int slicenumber){
 	threadParams* thrdprm = new threadParams(this, slicenumber, thread_index);
 	return pthread_create(&generators[thread_index], NULL, generate_poses, (void*)thrdprm);
+}
+int threadpool::launch_next_binning_thread(int par_i, int par_j, int par_k, int par_thrdnmbr){
+	coarsening_params* crsprms = new coarsening_params(par_i, par_j, par_k, this, par_thrdnmbr);
+	return pthread_create(&binners[par_thrdnmbr], NULL, coarsenData, (void*)crsprms);
 }
