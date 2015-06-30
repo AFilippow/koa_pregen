@@ -110,6 +110,8 @@ pthread_t *generators, *sorters, *binners;
 int *threadstatus_generators, *threadstatus_sorters, *threadstatus_binners ;
 FILE* mainlog;
 
+float x_low, y_low, z_low, x_high, y_high, z_high;
+
 int* get_generator_status_pointer(int i);
 int run();
 int launch_next_generator_thread(int thread_index, int slicenumber);

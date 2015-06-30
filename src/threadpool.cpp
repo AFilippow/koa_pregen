@@ -51,6 +51,14 @@ threadpool::threadpool(int param_totalgenthreads, int param_maxsortthreads, int 
 	finished_generator_threads = 0;
 	current_generator_threads = 0;
 	generators_finished = false;
+	x_low = -0.45; 
+	y_low = -0.3;
+	z_low = 0;
+	x_high = 0.45;
+	y_high = 0.6;
+	z_high = 0.6;
+	
+	
 }
 vector<float> get_multiplet_position(multiplet par_multiplet){
 	vector<float> output(3);
@@ -62,11 +70,11 @@ vector<float> get_multiplet_position(multiplet par_multiplet){
 
 void enqueue_multiplet(multiplet par_multiplet, threadpool* par_thrdpl){
 	vector<float> position = get_multiplet_position(par_multiplet);
-	int x_index = floor((position[0]+0.3)*61/0.6);
+	int x_index = floor((position[0]-par_thrdpl->x_low)*61/(par_thrdpl->x_high - par_thrdpl->x_low));
 	if (x_index < 0 || x_index >= 62) printf("ERROR: x_index is %i \n", x_index);
-	int y_index = floor((position[1]+0.15)*61/0.6);
+	int y_index = floor((position[1]-par_thrdpl->y_low)*61/(par_thrdpl->y_high - par_thrdpl->y_low));
 	if (y_index < 0 || y_index >= 62) printf("ERROR: y_index is %i \n", y_index);
-	int z_index = floor((position[2])*21/0.2);
+	int z_index = floor((position[2]-par_thrdpl->z_low)*21/(par_thrdpl->z_high - par_thrdpl->z_low));
 	if (z_index < 0 || z_index >= 22) printf("ERROR: z_index is %i \n", z_index);
 	
 	koa_wqueue<multiplet> *queue = (par_thrdpl->qpool.get_queue(x_index, y_index, z_index));
@@ -168,7 +176,14 @@ void* save_queues_to_disk(void* par1void){
 
 
 
-
+bool within_range(KDL::Vector par_vector){///[TODO] replace constants here
+	if (par_vector.x() < -0.45 || par_vector.y() < -0.3 || par_vector.z() < 0 || par_vector.x() > 0.45 || par_vector.y() > 0.6 || par_vector.z() > 0.6)
+		return false;
+	else 
+		return true;
+	
+	
+}
 
 void* generate_poses(void* par1void){ //NOT part of threadpool
 	// I cannot make generate_poses() a member function of cspaceconverter under c++03 and ROS hydro does not support c++2011
@@ -226,16 +241,16 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			
 			
 			
-			if (!(position.x() < -0.3 || position.y() < -0.15 || position.z() < 0 || position.x() > 0.3 || position.y() > 0.45 || position.z() > 0.2))
+			if (within_range(position))
 				enqueue_multiplet(position_multiplet, params.parentThreadpool);
 			
-			if (!(handposition.x() < -0.3 || handposition.y() < -0.15 || handposition.z() < 0 || handposition.x() > 0.3 || handposition.y() > 0.45 || handposition.z() > 0.2))
+			if (within_range(handposition))
 				enqueue_multiplet(hand_position_multiplet, params.parentThreadpool);
 			
 			
 			kinematic_solver->JntToCart(q, cartpos, 4);
 			KDL::Vector position2 = baseframe*cartpos.p;
-			if (!(position2.x() < -0.3 || position2.y() < -0.15 || position2.z() < 0 || position2.x() > 0.3 || position2.y() > 0.45 || position2.z() > 0.2)){
+			if (within_range(position2)){
 				multiplet position_multiplet_2(toVector(q), toVector(position2)); 
 				enqueue_multiplet(position_multiplet_2, params.parentThreadpool);
 			}
@@ -243,14 +258,14 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			position3.x(position.x()/3.00+position2.x()*2.00/3.00);
 			position3.y(position.y()/3.00+position2.y()*2.00/3.00);
 			position3.z(position.z()/3.00+position2.z()*2.00/3.00);
-			if (!(position3.x() < -0.3 || position3.y() < -0.15 || position3.z() < 0 || position3.x() > 0.3 || position3.y() > 0.45 || position3.z() > 0.2)){
+			if (within_range(position3)){
 				multiplet position_multiplet_3(toVector(q), toVector(position3)); 
 				enqueue_multiplet(position_multiplet_3, params.parentThreadpool);
 			}
 			position3.x(position.x()*2.00/3.00+position2.x()/3.00);
 			position3.y(position.y()*2.00/3.00+position2.y()/3.00);
 			position3.z(position.z()*2.00/3.00+position2.z()/3.00);
-			if (!(position3.x() < -0.3 || position3.y() < -0.15 || position3.z() < 0 || position3.x() > 0.3 || position3.y() > 0.45 || position3.z() > 0.2)){
+			if (within_range(position3)){
 				multiplet position_multiplet_4(toVector(q), toVector(position3)); 
 				enqueue_multiplet(position_multiplet_4, params.parentThreadpool);
 			}
