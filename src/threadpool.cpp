@@ -83,26 +83,35 @@ void enqueue_multiplet(multiplet par_multiplet, threadpool* par_thrdpl){
 vector<float> bin(vector<float> input){
 	vector<float> output = input;
 	for (int i = 0; i < output.size(); i++)
-		output[i] = 0.2*floor(output[i]*5);
+		output[i] = 0.5*floor(output[i]*2);
 	return output;
 }
 
 
+void* derpOnce(void* par_void){
+  
+  coarsening_params params = *(coarsening_params*) par_void;
+  sleep(1);
+  params.parentThreadpool->threadstatus_binners[params.threadnumber] = FINISHED;
+}
 
 void* coarsenData(void* par_void){
 	coarsening_params params = *(coarsening_params*) par_void;
-	int rx, ry, rz;
+	float rx, ry, rz;
 	FILE * yzslice;
 	std::string line;
 	vector<float> point(6);
 	time_t start = time(0);
-
+	float should_be_zero = 0;
+	double readpoints = 0;	
 	vector< vector< float > >obstacles(0); ///continue here //TODO need a better coarsening algorithm, use one kernel per 6-cube of side length 0.2 maybe?
 	vector< float > counts(0);
 	std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/slices/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(), ios::in);		
 	while (std::getline(slicefile, line)){
+		readpoints++;
 		std::istringstream iss(line);
-		if (!(iss >> rx >> ry >> rz >> point[0] >> point[1] >> point[2] >> point[3] >> point[4] >> point[5])) { printf("error: cannot read line!\n");continue; }
+		if (!(iss >> rx >> ry >> rz >> point[0] >> point[1] >> point[2] >> point[3] >> point[4] >> point[5] >> should_be_zero)) { printf("error: cannot read line!\n");printf(line.c_str());continue; }
+		if (should_be_zero != 0) printf("warning: last joint value not zero!\n");
 		int count;
 		bool found = false;
 		for (int i = 0; i < obstacles.size(); i++){
@@ -127,13 +136,14 @@ void* coarsenData(void* par_void){
 		}	
 			
 	}
-	yzslice = fopen(("/media/Raid/afilippow/cspoutput/slicereduced/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(),"w");
+	yzslice = fopen(("/media/Raid/afilippow/cspoutput/slicesreduced/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(),"w");
 	for (int i1 = 0; i1 < obstacles.size(); i1++)
 		fprintf(yzslice,"%f \t %f \t %f \t %f \t %f \t %f \t %i \n", obstacles[i1][0], obstacles[i1][1], obstacles[i1][2], obstacles[i1][3], obstacles[i1][4], obstacles[i1][5], counts[i1]);
 	fclose(yzslice);
-	printf("slice %i, %i%, %i done after %f seconds \n", params.x, params.y, params.z, difftime( time(0), start));
+	fprintf(params.parentThreadpool->mainlog,"slice %i, %i, %i done after %f seconds, compressed to %f%%  \n", params.x, params.y, params.z, difftime( time(0), start), 100*obstacles.size()/readpoints);
 	params.parentThreadpool->threadstatus_binners[params.threadnumber] = FINISHED;
 }
+
 void* save_queues_to_disk(void* par1void){
 	queue_saving_params params = *(queue_saving_params*)par1void;
 	while (!params.parentThreadpool->generators_finished){
@@ -183,7 +193,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			q(2) = (-25.0f+(float)params.slicenumber*0.5)*PI/30;//k*PI/30.0f;
 			q(6) = 0;
 			
-
+	double foundPositions = 0;
 
 	
 	KDL::Frame cartpos;
@@ -225,18 +235,22 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			
 			
 			
-			if (!(position.x() < -0.3 || position.y() < -0.15 || position.z() < 0 || position.x() > 0.3 || position.y() > 0.45 || position.z() > 0.2))
+			if (!(position.x() < -0.3 || position.y() < -0.15 || position.z() < 0 || position.x() > 0.3 || position.y() > 0.45 || position.z() > 0.2)){
 				enqueue_multiplet(position_multiplet, params.parentThreadpool);
+				foundPositions++;
+			}
 			
-			if (!(handposition.x() < -0.3 || handposition.y() < -0.15 || handposition.z() < 0 || handposition.x() > 0.3 || handposition.y() > 0.45 || handposition.z() > 0.2))
+			if (!(handposition.x() < -0.3 || handposition.y() < -0.15 || handposition.z() < 0 || handposition.x() > 0.3 || handposition.y() > 0.45 || handposition.z() > 0.2)){
 				enqueue_multiplet(hand_position_multiplet, params.parentThreadpool);
-			
+				foundPositions++;
+			}
 			
 			kinematic_solver->JntToCart(q, cartpos, 4);
 			KDL::Vector position2 = baseframe*cartpos.p;
 			if (!(position2.x() < -0.3 || position2.y() < -0.15 || position2.z() < 0 || position2.x() > 0.3 || position2.y() > 0.45 || position2.z() > 0.2)){
 				multiplet position_multiplet_2(toVector(q), toVector(position2)); 
 				enqueue_multiplet(position_multiplet_2, params.parentThreadpool);
+				foundPositions++;
 			}
 			KDL::Vector position3;
 			position3.x(position.x()/3.00+position2.x()*2.00/3.00);
@@ -245,6 +259,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			if (!(position3.x() < -0.3 || position3.y() < -0.15 || position3.z() < 0 || position3.x() > 0.3 || position3.y() > 0.45 || position3.z() > 0.2)){
 				multiplet position_multiplet_3(toVector(q), toVector(position3)); 
 				enqueue_multiplet(position_multiplet_3, params.parentThreadpool);
+				foundPositions++;
 			}
 			position3.x(position.x()*2.00/3.00+position2.x()/3.00);
 			position3.y(position.y()*2.00/3.00+position2.y()/3.00);
@@ -252,13 +267,14 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			if (!(position3.x() < -0.3 || position3.y() < -0.15 || position3.z() < 0 || position3.x() > 0.3 || position3.y() > 0.45 || position3.z() > 0.2)){
 				multiplet position_multiplet_4(toVector(q), toVector(position3)); 
 				enqueue_multiplet(position_multiplet_4, params.parentThreadpool);
+				foundPositions++;
 			}
 			
 			
 		}
 	fprintf(params.parentThreadpool->mainlog,"slice %i at %f percent \n", params.slicenumber, ((float)i+29)*100.0f/58.0f);
 	}
-	fprintf(params.parentThreadpool->mainlog, "slice %i finished succesfully!\n", params.slicenumber);
+	fprintf(params.parentThreadpool->mainlog, "slice %i finished succesfully! %f positions found\n", params.slicenumber, foundPositions);
 	params.parentThreadpool->threadstatus_generators[params.threadnumber] = FINISHED;
 	pthread_exit(NULL);
 }
@@ -269,6 +285,8 @@ int threadpool::run(){
 	printf("Starting up\n");
 	void **status;	
 	mainlog = fopen("/media/Raid/afilippow/pregen.log", "w");
+	int current_examined_thread_index = 0;
+	/*
 	for (int i = 0; i < max_concurrent_generator_threads; i++){
 		std::cout << launch_next_generator_thread(i, current_generator_threads) << std::endl;
 		threadstatus_generators[i] = BUSY;
@@ -282,7 +300,7 @@ int threadpool::run(){
 		launch_next_sorter_thread(i, lbound, ubound);
 		printf("created sorter from %i to %i \n", lbound, ubound);
 	}
-	int current_examined_thread_index = 0;
+
 	while (finished_generator_threads < total_generator_threads){
 	///see if generator thread i is finished already	
 		if (threadstatus_generators[current_examined_thread_index] == FINISHED){
@@ -307,7 +325,7 @@ int threadpool::run(){
 	for(int i = 0; i <max_concurrent_sorter_threads; i++)
 	   pthread_join(sorters[i], NULL);
 	      
-	sleep(10);
+	sleep(10);*/
 	int finished_binning_threads = 0;
 	int running_binning_threads = 0;
 	int total_binning_threads = 61*61*21;
@@ -327,7 +345,7 @@ int threadpool::run(){
 			if (i == 61){
 				i = 0;
 				j++;
-				if ( j = 61){
+				if ( j == 61){
 					j = 0;
 					k++;
 				}
@@ -343,7 +361,7 @@ int threadpool::run(){
 	}
 	
 	
-	///TODO continue here
+
 	
 	fclose(mainlog);
 }
@@ -359,4 +377,5 @@ int threadpool::launch_next_generator_thread(int thread_index, int slicenumber){
 int threadpool::launch_next_binning_thread(int par_i, int par_j, int par_k, int par_thrdnmbr){
 	coarsening_params* crsprms = new coarsening_params(par_i, par_j, par_k, this, par_thrdnmbr);
 	return pthread_create(&binners[par_thrdnmbr], NULL, coarsenData, (void*)crsprms);
+	//return pthread_create(&binners[par_thrdnmbr], NULL, derpOnce, (void*)crsprms);
 }
