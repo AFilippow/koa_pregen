@@ -57,6 +57,8 @@ threadpool::threadpool(int param_totalgenthreads, int param_maxsortthreads, int 
 	x_high = 0.45;
 	y_high = 0.6;
 	z_high = 0.6;
+	xycoarseness = 21;
+	zcoarseness = 16;
 	
 	
 }
@@ -68,14 +70,18 @@ vector<float> get_multiplet_position(multiplet par_multiplet){
 	return output;
 }
 
-void enqueue_multiplet(multiplet par_multiplet, threadpool* par_thrdpl){
+void enqueue_multiplet(multiplet par_multiplet, threadpool* par_thrdpl, int par_debug = 0){
+	if (par_multiplet.rspaceposition[0] == 0.0 || par_multiplet.rspaceposition[1] == 0.0 || par_multiplet.rspaceposition[2] == 0.0){
+	 printf("Warning: passed %f, %f, %f to queue from part %i\n", par_multiplet.rspaceposition[0], par_multiplet.rspaceposition[1], par_multiplet.rspaceposition[2], par_debug); 
+	}
+  
 	vector<float> position = get_multiplet_position(par_multiplet);
-	int x_index = floor((position[0]-par_thrdpl->x_low)*61/(par_thrdpl->x_high - par_thrdpl->x_low));
-	if (x_index < 0 || x_index >= 62) printf("ERROR: x_index is %i \n", x_index);
-	int y_index = floor((position[1]-par_thrdpl->y_low)*61/(par_thrdpl->y_high - par_thrdpl->y_low));
-	if (y_index < 0 || y_index >= 62) printf("ERROR: y_index is %i \n", y_index);
-	int z_index = floor((position[2]-par_thrdpl->z_low)*21/(par_thrdpl->z_high - par_thrdpl->z_low));
-	if (z_index < 0 || z_index >= 22) printf("ERROR: z_index is %i \n", z_index);
+	int x_index = floor((position[0]-par_thrdpl->x_low)*par_thrdpl->xycoarseness/(par_thrdpl->x_high - par_thrdpl->x_low));
+	if (x_index < 0 || x_index > par_thrdpl->xycoarseness) printf("ERROR: x_index is %i \n", x_index);
+	int y_index = floor((position[1]-par_thrdpl->y_low)*par_thrdpl->xycoarseness/(par_thrdpl->y_high - par_thrdpl->y_low));
+	if (y_index < 0 || y_index > par_thrdpl->xycoarseness) printf("ERROR: y_index is %i \n", y_index);
+	int z_index = floor((position[2]-par_thrdpl->z_low)*par_thrdpl->zcoarseness/(par_thrdpl->z_high - par_thrdpl->z_low));
+	if (z_index < 0 || z_index > par_thrdpl->zcoarseness) printf("ERROR: z_index is %i \n", z_index);
 	
 	koa_wqueue<multiplet> *queue = (par_thrdpl->qpool.get_queue(x_index, y_index, z_index));
 	if (!queue){
@@ -107,7 +113,7 @@ void* coarsenData(void* par_void){
 	float should_be_zero = 0;
 	vector< vector< float > >obstacles(0); ///continue here //TODO need a better coarsening algorithm, use one kernel per 6-cube of side length 0.2 maybe?
 	vector< float > counts(0);
-	std::ifstream  slicefile(("/home/andrej/Workspace/cspoutput/4d/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(), ios::in);		
+	std::ifstream  slicefile(("/media/Raid/afilippow/cspoutput/4d/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(), ios::in);		
 	while (std::getline(slicefile, line)){
 		std::istringstream iss(line);
 		if (!(iss >> rx >> ry >> rz >> point[0] >> point[1] >> point[2] >> point[3] >> point[4] >> point[5] >> should_be_zero)) { printf("error: cannot read line!:"); printf(line.c_str());printf("\n");continue; }
@@ -135,7 +141,7 @@ void* coarsenData(void* par_void){
 		}	
 			
 	}
-	yzslice = fopen(("/home/andrej/Workspace/cspoutput/4dreduced/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(),"w");
+	yzslice = fopen(("/media/Raid/afilippow/cspoutput/4dreduced/slice_"+boost::to_string(params.x)+"_"+boost::to_string(params.y)+"_"+boost::to_string(params.z)+".dat").c_str(),"w");
 	for (int i1 = 0; i1 < obstacles.size(); i1++)
 		fprintf(yzslice,"%f \t %f \t %f \t %f \t %f \t %f \t %i \n", obstacles[i1][0], obstacles[i1][1], obstacles[i1][2], obstacles[i1][3], obstacles[i1][4], obstacles[i1][5], counts[i1]);
 	fclose(yzslice);
@@ -146,10 +152,10 @@ void* save_queues_to_disk(void* par1void){
 	queue_saving_params params = *(queue_saving_params*)par1void;
 	while (!params.parentThreadpool->generators_finished){
 	for (int i = params.start_slice; i < params.end_slice; i++)
-		for (int j = 0; j < 61; j++)
-			for (int k = 0; k < 21; k++){
+		for (int j = 0; j < params.parentThreadpool->xycoarseness; j++)
+			for (int k = 0; k < params.parentThreadpool->zcoarseness; k++){
 				koa_wqueue<multiplet> *queue =  params.parentThreadpool->qpool.get_queue(i,j,k);
-				FILE * slicefile = fopen(("/home/andrej/Workspace/cspoutput/4d/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+"_"+boost::to_string(k)+".dat").c_str(),"a");  //TODO fix path here
+				FILE * slicefile = fopen(("/media/Raid/afilippow/cspoutput/4d/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+"_"+boost::to_string(k)+".dat").c_str(),"a");  //TODO fix path here
 				while (queue->size() > 0){
 					multiplet curr_multiplet = queue->remove();
 					fprintf(slicefile,"%f \t %f \t %f \t",curr_multiplet.rspaceposition[0],curr_multiplet.rspaceposition[1],curr_multiplet.rspaceposition[2]);	
@@ -160,10 +166,10 @@ void* save_queues_to_disk(void* par1void){
 			}
 	}
 	for (int i = params.start_slice; i < params.end_slice; i++)
-		for (int j = 0; j < 61; j++)
-			for (int k = 0; k < 21; k++){
+		for (int j = 0; j < params.parentThreadpool->xycoarseness; j++)
+			for (int k = 0; k < params.parentThreadpool->zcoarseness; k++){
 				koa_wqueue<multiplet> *queue =  params.parentThreadpool->qpool.get_queue(i,j,k);
-				FILE * slicefile = fopen(("/home/andrej/Workspace/cspoutput/4d/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+"_"+boost::to_string(k)+".dat").c_str(),"a");  //TODO fix path here
+				FILE * slicefile = fopen(("/media/Raid/afilippow/cspoutput/4d/slice_"+boost::to_string(i)+"_"+boost::to_string(j)+"_"+boost::to_string(k)+".dat").c_str(),"a");  //TODO fix path here
 				while (queue->size() > 0){
 					multiplet curr_multiplet = queue->remove();
 					fprintf(slicefile,"%f \t %f \t %f \t",curr_multiplet.rspaceposition[0],curr_multiplet.rspaceposition[1],curr_multiplet.rspaceposition[2]);	
@@ -176,8 +182,8 @@ void* save_queues_to_disk(void* par1void){
 
 
 
-bool within_range(KDL::Vector par_vector){///[TODO] replace constants here
-	if (par_vector.x() < -0.45 || par_vector.y() < -0.3 || par_vector.z() < 0 || par_vector.x() > 0.45 || par_vector.y() > 0.6 || par_vector.z() > 0.6)
+bool within_range(KDL::Vector par_vector, threadpool* par_thrdpl){///[TODO] replace constants here
+	if (par_vector.x() < par_thrdpl->x_low || par_vector.y() < par_thrdpl->y_low || par_vector.z() < par_thrdpl->z_low || par_vector.x() > par_thrdpl->x_high || par_vector.y() > par_thrdpl->y_high || par_vector.z() > par_thrdpl->z_high)
 		return false;
 	else 
 		return true;
@@ -191,7 +197,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 	Chain KukaChain = KukaLWR_DHnew();
 	ChainFkSolverPos_recursive* kinematic_solver = new ChainFkSolverPos_recursive(KukaChain);
 	int jointNumber = KukaChain.getNrOfJoints();
-	KDL::Frame baseframe(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.0, 0.3) ) ;
+	KDL::Frame baseframe(KDL::Rotation::Quaternion(- 0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.0, 0.3) ) ;
 	threadParams params = *(threadParams*)par1void;
 	KDL::JntArray q(jointNumber);
 	
@@ -203,15 +209,16 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 	
 	KDL::Frame cartpos;
 	KDL::Vector position;
+	KDL::Vector extraposition;
 	KDL::Vector handposition;
 	fprintf(params.parentThreadpool->mainlog, "slice %i started!\n", params.slicenumber);
 
-	for (float i = -29; i <= 29; i+=0.2)	//51 +1
+	for (float i = -29; i <= 29; i+=1)	//51 +1
 	{
 
-		for (float j = -18; j <= 18; j+=0.2)	//37 +1
+		for (float j = -18; j <= 18; j+=1)	//37 +1
 		//for (float k = -25; k <= 25; k+=0.5) //51
-		for (float l = -18; l <= 18; l+=0.2)	// 37 +1
+		for (float l = -18; l <= 18; l+=1)	// 37 +1
 		//for (float m = -25; m <= 25; m+=1)	// 37 +1
 		//for (float n = -18; n <= 18; n+=1)	// 37 +1
 		{
@@ -238,36 +245,68 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			
 
 
+			/*for (int i = 1; i < 4; i++){
+			  float angle = 2*3.14152*((float)i)/6.0;
+			  int odd = !!(i % 2);  // using !! to ensure 0 or 1 value.
+
+			  float ifloat = (float)i;
+			  extraposition.x(position.x()*ifloat/4.0+handposition.x()*(4.0-ifloat)/4.0);
+			  extraposition.y(position.y()*ifloat/4.0+handposition.y()*(4.0-ifloat)/4.0);
+			  extraposition.z(position.z()*ifloat/4.0+handposition.z()*(4.0-ifloat)/4.0);
+			  if (within_range(extraposition, params.parentThreadpool)){
+			    multiplet position_multiplet_extra(toVector(q), toVector(extraposition)); 
+				enqueue_multiplet(position_multiplet_extra, params.parentThreadpool, 10+i);
+			  }
+			}*/
+			KDL::Vector xtrapos;
+			for (float i = 0; i < 6; i++)
+			  for (float j = 0; j < 6; j++)
+			    for (float k = 0; k < 6; k++){
+			  float angle = 2*3.14152*((float)i)/6.0;
+			  //int odd = !!(i % 2);  // using !! to ensure 0 or 1 value.
+			  
+			  /*xtrapos.x(sin(angle)*0.2);
+			  xtrapos.y(cos(angle)*0.2);
+			  xtrapos.z(0.15+odd*0.1);*/
+			  xtrapos.x(-0.1+i*0.04);
+			  xtrapos.y(-0.1+j*0.04);
+			  xtrapos.z(-0.04+k*0.04);
+			  float ifloat = (float)i;
+			  extraposition = baseframe*cartpos*xtrapos;
+			  if (within_range(extraposition, params.parentThreadpool)){
+			    multiplet position_multiplet_extra(toVector(q), toVector(extraposition)); 
+				enqueue_multiplet(position_multiplet_extra, params.parentThreadpool, 10+i);
+			  }
+			}			
 			
+			if (within_range(position, params.parentThreadpool))
+				enqueue_multiplet(position_multiplet, params.parentThreadpool, 1);
 			
-			
-			if (within_range(position))
-				enqueue_multiplet(position_multiplet, params.parentThreadpool);
-			
-			if (within_range(handposition))
-				enqueue_multiplet(hand_position_multiplet, params.parentThreadpool);
+			if (within_range(handposition, params.parentThreadpool))
+				enqueue_multiplet(hand_position_multiplet, params.parentThreadpool, 2);
 			
 			
 			kinematic_solver->JntToCart(q, cartpos, 4);
 			KDL::Vector position2 = baseframe*cartpos.p;
-			if (within_range(position2)){
+			if (within_range(position2, params.parentThreadpool)){
 				multiplet position_multiplet_2(toVector(q), toVector(position2)); 
-				enqueue_multiplet(position_multiplet_2, params.parentThreadpool);
+				enqueue_multiplet(position_multiplet_2, params.parentThreadpool, 3);
 			}
 			KDL::Vector position3;
 			position3.x(position.x()/3.00+position2.x()*2.00/3.00);
 			position3.y(position.y()/3.00+position2.y()*2.00/3.00);
 			position3.z(position.z()/3.00+position2.z()*2.00/3.00);
-			if (within_range(position3)){
+			if (within_range(position3, params.parentThreadpool)){
 				multiplet position_multiplet_3(toVector(q), toVector(position3)); 
-				enqueue_multiplet(position_multiplet_3, params.parentThreadpool);
+				enqueue_multiplet(position_multiplet_3, params.parentThreadpool, 4);
 			}
-			position3.x(position.x()*2.00/3.00+position2.x()/3.00);
-			position3.y(position.y()*2.00/3.00+position2.y()/3.00);
-			position3.z(position.z()*2.00/3.00+position2.z()/3.00);
-			if (within_range(position3)){
-				multiplet position_multiplet_4(toVector(q), toVector(position3)); 
-				enqueue_multiplet(position_multiplet_4, params.parentThreadpool);
+			KDL::Vector position4;
+			position4.x(position.x()*2.00/3.00+position2.x()/3.00);
+			position4.y(position.y()*2.00/3.00+position2.y()/3.00);
+			position4.z(position.z()*2.00/3.00+position2.z()/3.00);
+			if (within_range(position4, params.parentThreadpool)){
+				multiplet position_multiplet_4(toVector(q), toVector(position4)); 
+				enqueue_multiplet(position_multiplet_4, params.parentThreadpool, 5);
 			}
 			
 			
@@ -284,7 +323,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 int threadpool::run(){
 	printf("Starting up\n");
 	void **status;	
-	mainlog = fopen("/home/andrej/Workspace/pregen.log", "w");
+	mainlog = fopen("/home/afilippow/workspace/pregen.log", "w");
 		int current_examined_thread_index = 0;
 		
 	for (int i = 0; i < max_concurrent_generator_threads; i++){
@@ -296,7 +335,7 @@ int threadpool::run(){
 	int ubound = 0;
 	for (int i = 0; i < max_concurrent_sorter_threads; i++){
 		lbound = ubound;
-		ubound = floor(((float)(i+1)*61.0F)/((float)max_concurrent_sorter_threads));
+		ubound = floor(((float)(i+1)*((float)xycoarseness))/((float)max_concurrent_sorter_threads));
 		launch_next_sorter_thread(i, lbound, ubound);
 		printf("created sorter from %i to %i \n", lbound, ubound);
 	}
@@ -328,7 +367,7 @@ int threadpool::run(){
 	sleep(10);
 	int finished_binning_threads = 0;
 	int running_binning_threads = 0;
-	int total_binning_threads = 61*61*21;
+	int total_binning_threads = xycoarseness*xycoarseness*zcoarseness;
 	current_examined_thread_index = 0;
 	int i = 0;
 	int j = 0;
@@ -346,10 +385,10 @@ int threadpool::run(){
 			launch_next_binning_thread(i, j, k, current_examined_thread_index);
 			fprintf(mainlog, "Binning thread %i, %i, %i launched\n", i, j, k);
 			i++;
-			if (i == 61){
+			if (i == xycoarseness){
 				i = 0;
 				j++;
-				if ( j == 61){
+				if ( j == xycoarseness){
 					j = 0;
 					k++;
 				}

@@ -50,7 +50,7 @@
 #define NIL (0) 
 #define PI 3.14152
 
-cspaceconverter * CSP;
+//cspaceconverter * CSP;
 
 
 //---------------------------------------------------------------------------------------------------------------------//
@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 { 
 	//CSP = new cspaceconverter();
 	//KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
-	threadpool thrdpl(51, 5, 16);
+	threadpool thrdpl(51, 8, 27);
 	thrdpl.run();
 	/*KDL::JntArray q(7);
 	q(0) = 1.57;
