@@ -259,7 +259,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			  }
 			}*/
 			KDL::Vector xtrapos;
-			for (float i = 0; i < 128; i++)
+			for (float i = 0; i < 128; i++){
 
 			  float angle = 2*3.14152*((float)i)/8.0;
 			  //int odd = !!(i % 2);  // using !! to ensure 0 or 1 value.
