@@ -261,14 +261,14 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			KDL::Vector xtrapos;
 			for (float i = 0; i < 128; i++){
 
-			  float angle = 2*3.14152*((float)i)/8.0;
+			  float angle = 2*3.14152*((float)i)/11.1;
 			  //int odd = !!(i % 2);  // using !! to ensure 0 or 1 value.
 			  /*xtrapos.x(sin(angle)*0.2);
 			  xtrapos.y(cos(angle)*0.2);
 			  xtrapos.z(0.15+odd*0.1);*/
-			  xtrapos.x(sin(angle)*0.2);
-			  xtrapos.y(cos(angle)*0.1);
-			  xtrapos.z(-0.2+i/128.0*0.5);
+			  xtrapos.x(sin(angle)*0.12);
+			  xtrapos.y(cos(angle)*0.12);
+			  xtrapos.z(-0.05+i/128.0*0.35);
 			  float ifloat = (float)i;
 			  extraposition = baseframe*cartpos*xtrapos;
 			  if (within_range(extraposition, params.parentThreadpool)){
