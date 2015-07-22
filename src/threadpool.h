@@ -35,9 +35,13 @@ struct multiplet{
 };
 
 struct queuerow{
-	koa_wqueue<multiplet> queue[21];
+	vector<koa_wqueue<multiplet> > queue;
+	queuerow(){
+	  queue.resize(41);
+	  
+	}
 	koa_wqueue<multiplet>* get_queue(int z){
-		if (z >= 0 && z < 21) 
+		if (z >= 0 && z < 41) 
 			return &(queue[z]);
 		else return NULL;
 	}
@@ -87,7 +91,7 @@ struct coarsening_params{
 };
 
 struct threadParams{
-	threadpool * parentThreadpool;	
+	threadpool * parentThreadpool;
 	int threadnumber, slicenumber;
 	threadParams(threadpool* par_threadpool, int par_slicenumber, int par_threadnumber) {
 		parentThreadpool = par_threadpool; 

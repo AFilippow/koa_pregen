@@ -57,8 +57,8 @@ threadpool::threadpool(int param_totalgenthreads, int param_maxsortthreads, int 
 	x_high = 0.45;
 	y_high = 0.6;
 	z_high = 0.6;
-	xycoarseness = 21;
-	zcoarseness = 16;
+	xycoarseness = 61;
+	zcoarseness = 21;
 	
 	
 }
@@ -201,7 +201,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 	threadParams params = *(threadParams*)par1void;
 	KDL::JntArray q(jointNumber);
 	
-			q(2) = (-25.0f+(float)params.slicenumber*0.5)*PI/30;//k*PI/30.0f;
+			q(2) = (-25.0f+(float)params.slicenumber)*PI/30.0f;//k*PI/30.0f;
 			q(6) = 0;
 			
 
@@ -213,12 +213,12 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 	KDL::Vector handposition;
 	fprintf(params.parentThreadpool->mainlog, "slice %i started!\n", params.slicenumber);
 
-	for (float i = -29; i <= 29; i+=1)	//51 +1
+	for (float i = -29; i <= 29; i+=0.5)	//51 +1
 	{
 
-		for (float j = -18; j <= 18; j+=1)	//37 +1
+		for (float j = -18; j <= 18; j+=0.5)	//37 +1
 		//for (float k = -25; k <= 25; k+=0.5) //51
-		for (float l = -18; l <= 18; l+=1)	// 37 +1
+		for (float l = -18; l <= 18; l+=0.5)	// 37 +1
 		//for (float m = -25; m <= 25; m+=1)	// 37 +1
 		//for (float n = -18; n <= 18; n+=1)	// 37 +1
 		{
@@ -245,7 +245,7 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			
 
 
-			/*for (int i = 1; i < 4; i++){
+			for (int i = 1; i < 4; i++){
 			  float angle = 2*3.14152*((float)i)/6.0;
 			  int odd = !!(i % 2);  // using !! to ensure 0 or 1 value.
 
@@ -257,18 +257,15 @@ void* generate_poses(void* par1void){ //NOT part of threadpool
 			    multiplet position_multiplet_extra(toVector(q), toVector(extraposition)); 
 				enqueue_multiplet(position_multiplet_extra, params.parentThreadpool, 10+i);
 			  }
-			}*/
+			}
 			KDL::Vector xtrapos;
-			for (float i = 0; i < 128; i++){
+			for (float i = 0; i < 64; i++){
 
 			  float angle = 2*3.14152*((float)i)/11.1;
 			  //int odd = !!(i % 2);  // using !! to ensure 0 or 1 value.
-			  /*xtrapos.x(sin(angle)*0.2);
-			  xtrapos.y(cos(angle)*0.2);
-			  xtrapos.z(0.15+odd*0.1);*/
 			  xtrapos.x(sin(angle)*0.12);
 			  xtrapos.y(cos(angle)*0.12);
-			  xtrapos.z(-0.05+i/128.0*0.35);
+			  xtrapos.z(-0.05+i/64.0*0.35);
 			  float ifloat = (float)i;
 			  extraposition = baseframe*cartpos*xtrapos;
 			  if (within_range(extraposition, params.parentThreadpool)){
