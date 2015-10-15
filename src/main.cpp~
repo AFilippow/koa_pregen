@@ -58,8 +58,8 @@ int main(int argc, char** argv)
 { 
 	//CSP = new cspaceconverter();
 	//KDL::Frame k(KDL::Rotation::Quaternion(-0.444, 0.231, 0.40, 0.768), KDL::Vector(-0.4, 0.15, 0.35)  ); //listen to the rotation with "rosrun tf tf_echo KUKA_base world" from console
-	//threadpool thrdpl(51, 10, 27);
-	//thrdpl.run();
+	threadpool thrdpl(51, 10, 27);
+	thrdpl.run();
 	/*KDL::JntArray q(7);
 	q(0) = 1.57;
 	q(1) = 0;
